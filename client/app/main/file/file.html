@@ -23,7 +23,7 @@
   </div>
   <div ng-class="{ 'main__file__content--readonly': !secret }" class="main__file__content" ui-view>
     <div class="main__file__content__pre"
-         ui-ace="{mode: 'json', theme: 'tomorrow'}"
+         ui-ace="{mode: 'json'}"
          readonly="{{!secret}}"
          ng-model="file.content"></div>
   </div>
