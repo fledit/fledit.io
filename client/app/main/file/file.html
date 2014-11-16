@@ -5,11 +5,6 @@
         View
       </a>
     </li>
-    <li ui-sref-active="active" ng-if="secret">
-      <a ui-sref="main.file.edit({id: file._id, secret: secret })">
-        Edit
-      </a>
-    </li>
     <li ui-sref-active="active">
       <a ui-sref="main.file.use({id: file._id })">
         Use
@@ -26,10 +21,10 @@
       </span>
     </div>
   </div>
-  <div class="main__file__content" ui-view>
+  <div ng-class="{ 'main__file__content--readonly': !secret }" class="main__file__content" ui-view>
     <div class="main__file__content__pre"
          ui-ace="{mode: 'json', theme: 'tomorrow'}"
-         readonly="true"
+         readonly="{{!secret}}"
          ng-model="file.content"></div>
   </div>
 </div>

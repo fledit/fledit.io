@@ -21,7 +21,7 @@ var FileSchema = new Schema({
   content: {
     type: Object,
     require: true
-  },
+  }
 });
 
 FileSchema.plugin(hash, {
