@@ -1,0 +1,17 @@
+<div class="main">
+  <div class="container-fluid">
+    <form class="row main__editor" name="editorForm" ng-submit="addFile()">
+      <div class="col-sm-2 main__editor__sidebar">
+        <p class="lead">
+          <strong>Fledit</strong> lets you create, share and edit a JSON file in seconds.
+        </p>
+        <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__sidebar__save">
+          Save
+        </button>
+      </div>
+      <div class="col-sm-10 main__editor__drop" ui-view>
+        <textarea ng-model="$parent.newFile" required class="main__editor__drop__textarea form-control"></textarea>
+      </div>
+    </form>
+  </div>
+</div>
