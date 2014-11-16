@@ -1,0 +1,33 @@
+.file {
+
+  &__tabs {
+    margin:5px 0;
+    padding:0 5px;
+    li.active > a, li.active:hover > a, li.active > a:focus {
+      background:white;
+    }
+  }
+
+  &__heading {
+    padding:5px;
+  }
+
+  &__content {
+    .box-shadow(0 0 5px 0 @nav-tabs-border-color inset);
+    border-top:1px solid @nav-tabs-border-color;
+    position:absolute;
+    top:@input-height-base * 2px + 10px * 3px;
+    left:0;
+    right:0;
+    bottom:0;
+    overflow: auto;
+    background: lighten(@nav-tabs-border-color, 10%);
+
+    & &__pre {
+      border:0;
+      background: transparent;
+    }
+
+  }
+
+}

@@ -1,0 +1,27 @@
+<div class="file">
+  <ul class="nav nav-tabs file__tabs" role="tablist">
+    <li ui-sref-active="active">
+      <a ui-sref="main.file({id: file._id })">
+        JSON file
+      </a>
+    </li>
+    <li ui-sref-active="active">
+      <a ui-sref="main.file.edit({id: file._id })">
+        Share
+      </a>
+    </li>
+  </ul>
+  <div class="file__heading">
+    <div class="input-group">
+      <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
+      <span class="input-group-btn">
+        <a class="btn btn-default" type="button" href="{{rawFilePath()}}" target="_blank">
+          Raw file
+        </a>
+      </span>
+    </div>
+  </div>
+  <div class="file__content" ui-file>
+    <pre class="file__content__pre">{{file.content}}</pre>
+  </div>
+</div>
