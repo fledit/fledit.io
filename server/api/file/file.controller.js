@@ -13,11 +13,20 @@ exports.index = function(req, res) {
 
 // Get a single file
 exports.show = function(req, res) {
-  File.findById(req.params.id, function (err, file) {
+
+  var callback = function (err, file) {
     if(err) { return handleError(res, err); }
     if(!file) { return res.send(404); }
     return res.json(file);
-  });
+  };
+
+  var secret = req.query.secret;
+
+  if(secret) {
+    File.findOne({_id: req.params.id, secret: secret}, callback);
+  } else {
+    File.findById(req.params.id, callback);
+  }
 };
 
 // Creates a new file in the DB.

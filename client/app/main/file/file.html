@@ -5,14 +5,14 @@
         View
       </a>
     </li>
-    <li ui-sref-active="active">
-      <a ui-sref="main.file.edit({id: file._id })">
+    <li ui-sref-active="active" ng-if="secret">
+      <a ui-sref="main.file.edit({id: file._id, secret: secret })">
         Edit
       </a>
     </li>
     <li ui-sref-active="active">
-      <a ui-sref="main.file.share({id: file._id })">
-        Share
+      <a ui-sref="main.file.use({id: file._id })">
+        Use
       </a>
     </li>
   </ul>
@@ -21,7 +21,7 @@
       <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
       <span class="input-group-btn">
         <a class="btn btn-default" type="button" href="{{rawFilePath()}}" target="_blank">
-          Raw file
+          Raw
         </a>
       </span>
     </div>

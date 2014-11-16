@@ -14,7 +14,8 @@
     "lodash": "~2.4.1",
     "angular-ui-router": "~0.2.10",
     "restangular": "~1.4.0",
-    "angular-ui-ace": "bower"
+    "angular-ui-ace": "bower",
+    "angular-local-storage": "~0.1.5"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

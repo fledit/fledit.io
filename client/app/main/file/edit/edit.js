@@ -4,6 +4,7 @@ angular.module('fledit').config(function ($stateProvider) {
   $stateProvider.state('main.file.edit', {
     url: '/edit',
     templateUrl: 'app/main/file/edit/edit.html',
-    controller: 'MainFileEditCtrl'
+    controller: 'MainFileEditCtrl',
+    reloadOnSearch: false
   });
 });
