@@ -1,17 +1,22 @@
-<div class="file">
-  <ul class="nav nav-tabs file__tabs" role="tablist">
-    <li ui-sref-active="active">
+<div class="main__file">
+  <ul class="nav nav-tabs main__file__tabs" role="tablist">
+    <li ui-sref-active-eq="active">
       <a ui-sref="main.file({id: file._id })">
-        JSON file
+        View
       </a>
     </li>
     <li ui-sref-active="active">
       <a ui-sref="main.file.edit({id: file._id })">
+        Edit
+      </a>
+    </li>
+    <li ui-sref-active="active">
+      <a ui-sref="main.file.share({id: file._id })">
         Share
       </a>
     </li>
   </ul>
-  <div class="file__heading">
+  <div class="main__file__heading">
     <div class="input-group">
       <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
       <span class="input-group-btn">
@@ -21,7 +26,10 @@
       </span>
     </div>
   </div>
-  <div class="file__content" ui-file>
-    <pre class="file__content__pre">{{file.content}}</pre>
+  <div class="main__file__content" ui-view>
+    <div class="main__file__content__pre"
+         ui-ace="{mode: 'json', theme: 'tomorrow'}"
+         readonly="true"
+         ng-model="file.content"></div>
   </div>
 </div>

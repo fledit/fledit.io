@@ -9,7 +9,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restan
         // Reset the scope value
         $scope.newFile = '';
         // Go to the file view
-        $state.go("main.view", { id: data._id });
+        $state.go("main.file", { id: data._id });
       }
     });
   };

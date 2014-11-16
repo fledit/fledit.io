@@ -5,5 +5,6 @@ angular.module('fledit', [
   'ngSanitize',
   'restangular',
   'ui.router',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ui.ace'
 ]);
