@@ -15,7 +15,8 @@
     "angular-ui-router": "~0.2.10",
     "restangular": "~1.4.0",
     "angular-ui-ace": "bower",
-    "angular-local-storage": "~0.1.5"
+    "angular-local-storage": "~0.1.5",
+    "angular-socket-io": "~0.6.1"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

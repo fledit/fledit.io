@@ -24,7 +24,7 @@
     "filterDirectory": "client/app/",
     "serviceDirectory": "client/app/",
     "basePath": "client",
-    "moduleName": "",
+    "moduleName": "fledit",
     "filters": [
       "uirouter"
     ],

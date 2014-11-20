@@ -7,5 +7,6 @@ angular.module('fledit', [
   'restangular',
   'ui.router',
   'ui.bootstrap',
-  'ui.ace'
+  'ui.ace',
+  'btford.socket-io'
 ]);
