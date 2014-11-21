@@ -15,58 +15,31 @@ angular.module('fledit').factory('socket', function(socketFactory) {
     });
 
     return {
+      //socket: socket,
       socket: socket,
       /**
-       * Register listeners to sync an array with updates on a room
+       * Register listeners to watch changes on the given file
        *
-       * Takes the array we want to sync, the room name that socket updates are sent from,
-       * and an optional callback function after new items are updated.
        *
-       * @param {String} roomName
-       * @param {Array} array
+       * @param {String} fileId
        * @param {Function} cb
        */
-      syncUpdates: function (roomName, array, cb) {
-        cb = cb || angular.noop;
-
-        /**
-         * Syncs item creation/updates on 'room:save'
-         */
-        socket.on(roomName + ':save', function (item) {
-          var oldItem = _.find(array, {_id: item._id});
-          var index = array.indexOf(oldItem);
-          var event = 'created';
-
-          // replace oldItem if it exists
-          // otherwise just add item to the collection
-          if (oldItem) {
-            array.splice(index, 1, item);
-            event = 'updated';
-          } else {
-            array.push(item);
-          }
-
-          cb(event, item, array);
-        });
-
-        /**
-         * Syncs removed items on 'room:remove'
-         */
-        socket.on(roomName + ':remove', function (item) {
-          var event = 'deleted';
-          _.remove(array, {_id: item._id});
-          cb(event, item, array);
-        });
+      subscribe: function (fileId, cb) {
+        cb = cb || angular.noop; 
+        // Subscrive to the given room
+        return socket.emit('subscribe', fileId, cb);        
       },
 
       /**
        * Removes listeners for a rooms updates on the socket
        *
-       * @param roomName
+       * @param fileId
        */
-      unsyncUpdates: function (roomName) {
-        socket.removeAllListeners(roomName + ':save');
-        socket.removeAllListeners(roomName + ':remove');
+      unsubscribe: function (fileId) {        
+        socket.removeAllListeners('save:' + fileId);
+        socket.removeAllListeners('remove:' + fileId);
+        // Subscrive to the given room
+        return socket.emit('unsubscribe', fileId);
       }
     };
   });

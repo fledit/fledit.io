@@ -40,11 +40,14 @@ exports.create = function(req, res) {
 // Updates an existing file in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  File.findById(req.params.id, function (err, file) {
+  File.findOne({_id: req.params.id, secret: req.body.secret}, function (err, file) {
     if (err) { return handleError(res, err); }
     if(!file) { return res.send(404); }
-    var updated = _.merge(file, req.body);
-    updated.save(function (err) {
+    // Only content can be changed    
+    file.content = req.body.content;
+    // Avoid secret regeneration    
+    file.secret = req.body.secret;    
+    file.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, file);
     });

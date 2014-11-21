@@ -22,9 +22,19 @@
     </div>
   </div>
   <div ng-class="{ 'main__file__content--readonly': !secret }" class="main__file__content" ui-view>
-    <div class="main__file__content__pre"
-         ui-ace="{mode: 'json'}"
-         readonly="{{!secret}}"
-         ng-model="file.content"></div>
+    <form name="editorForm" ng-submit="saveFile()">
+      <div class="main__file__content__pre"
+           ui-ace="{mode: 'json'}"
+           readonly="{{!secret}}"
+           required
+           ng-model="$parent.content">
+      </div>
+
+      <div class="main__file__content__footer" ng-if="secret">
+        <button ng-disabled="!editorForm.$valid || !fileChanged()" class="btn btn-primary btn-lg main__file__content__footer__save">
+          Update
+        </button>
+      </div>
+    </form>
   </div>
 </div>
