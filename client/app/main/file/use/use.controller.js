@@ -9,10 +9,10 @@ angular.module('fledit').controller('MainFileUseCtrl', function ($scope, $http, 
 	}
 
 	$scope.jquery = [
-		"// Simply use the raw",
-		"var fileurl ='" + $scope.rawFilePath() + "';",
+		"// Simply use the raw file from the API",
+		"var file ='" + $scope.rawFilePath() + "';",
 		"// And get the data without unsing JSONP callback",
-		"$.getJSON(fileurl, function(data) {",
+		"$.getJSON(file, function(data) {",
 		"    console.log(data);",
 		"});"
 	].join("\n")
