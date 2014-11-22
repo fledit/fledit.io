@@ -35,7 +35,7 @@
       </div>
     </div>
   </div>
-  <div ng-class="{ 'main__file__content--readonly': !secret }" class="main__file__content" ui-view>
+  <div class="main__file__content" ui-view>
     <div class="main__file__content__alerts">
       <div class="alert alert-info text-center main__file__content__alerts__item" ng-show="mustRefreshFile()">
         This file has been updated. <strong><a ng-click="refreshFile()">Refresh</a></strong> or <a ng-click="$parent.updatedFile = null">ignore changes.</a>
@@ -43,6 +43,7 @@
     </div>
     <form name="editorForm" ng-submit="saveFile()">
       <div class="main__file__content__pre"
+           ng-class="{ 'main__file__content__pre--readonly': !secret }"
            ui-ace="{mode: 'json', theme: 'clouds', onLoad: saveEditor}"
            readonly="{{!secret}}"
            required
