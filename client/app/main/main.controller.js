@@ -14,4 +14,13 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restan
     });
   };
 
+  $scope.noParseError = function($value) {
+    try {
+      angular.fromJson($value);
+      return true;
+    } catch(e) {
+      return false;
+    }
+  };
+
 });

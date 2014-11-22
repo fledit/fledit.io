@@ -16,7 +16,8 @@
     "angular-ui-ace": "bower",
     "angular-local-storage": "~0.1.5",
     "angular-socket-io": "~0.6.1",
-    "angular-animate": "~1.3.3"
+    "angular-animate": "~1.3.3",
+    "angular-ui-utils": "bower-validate"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

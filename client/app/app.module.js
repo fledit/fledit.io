@@ -9,5 +9,6 @@ angular.module('fledit', [
   'ui.router',
   'ui.bootstrap',
   'ui.ace',
+  'ui.validate',
   'btford.socket-io'
 ]);
