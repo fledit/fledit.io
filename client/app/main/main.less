@@ -26,10 +26,33 @@
     &__sidebar {
       height:100%;
       position:relative;
-      padding:10px;
+      padding:0 10px;
       color:contrast(@brand-secondary);
 
+      &__brand {
+        font-size:1.8em;
+        height:47px;
+        line-height:47px;
+        display: block;
+        margin: 0 -10px;
+        padding:0 10px;
+        margin-bottom: 20px;
+        font-weight: bold;
+        background: darken(@brand-secondary, 3);
+        &:hover, &:active, &:focus { 
+          text-decoration: none;
+        }
+      }
+
       a { color:inherit; }
+
+      &__new {        
+        .transition(0.4s);
+        &.ng-hide {
+          opacity:0;
+          .translate(-100%, 0);
+        }  
+      }
     }
 
     &__drop {

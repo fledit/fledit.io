@@ -2,9 +2,15 @@
   <div class="container-fluid">
     <div class="row main__editor">
       <div class="col-sm-2 main__editor__sidebar hidden-xs">
+        <a ui-sref="main" class="main__editor__sidebar__brand">
+          <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; Fledit
+        </a>
         <p class="lead">
-          <a ui-sref="main"><strong>Fledit</strong></a> lets you create, share and edit a JSON file in seconds.
+          Create, share and edit a JSON file in seconds.
         </p>
+        <a class="btn btn-primary btn-block main__editor__sidebar__new" ui-sref="main" ng-hide="'main' | isState">
+          New file
+        </a>
       </div>
       <div class="col-sm-10 main__editor__drop" ui-view>
         <form  name="editorForm" ng-submit="addFile()">
@@ -15,7 +21,7 @@
                class="main__editor__drop__textarea form-control"></div>        
           <div class="main__editor__drop__footer">
             <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__drop__footer__save">
-              Publish
+              Publish the new file 
             </button>
           </div>
         </form>

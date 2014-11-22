@@ -8,7 +8,19 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // Save the editor instance for further update 
   // @tofix: ui-ace doesn't support changes from the scope, updating the editor
   // is a temporary solution (clue: ngModel.$render isn't called).
-  $scope.saveEditor = function(session) { editor = session; }
+  $scope.saveEditor = function(session) { 
+    editor = session;
+    // We add a command to submit the form from the keep board
+    editor.commands.addCommand({
+      name: "submit",
+      exec: function() {
+        $scope.$apply(function() {
+          return $scope.noParseError($scope.content) && $scope.saveFile()
+        });
+      },
+      bindKey: "Ctrl-S"
+    });
+  }
   // Path to the api endpoint of the current file
   $scope.rawFilePath = function() {
     var secureFile = file.clone()
@@ -84,7 +96,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
     if(file) {
       // Stringify received JSON to allow edition
       $scope.file = file;
-      $scope.content = angular.toJson(file.content, true);
+      $scope.content = JSON.stringify(file.content, null, 4);
       // Does the editor already rexist?
       if(editor && editor.getValue() !== $scope.content ) { 
         editor.setValue($scope.content); 

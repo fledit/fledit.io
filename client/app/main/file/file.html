@@ -12,7 +12,7 @@
     </li>
   </ul>
   <div class="main__file__heading">
-    <form name="editorForm" ng-submit="saveFile()">
+    <form name="nameForm" ng-submit="saveFile()">
       <div class="row">      
         <div class="col-xs-12" ng-show="secret">
           <div class="input-group">
@@ -28,29 +28,7 @@
           <input type="text" class="form-control" ng-value="file.name || 'Untitled file'" readonly />                
         </div>
       </div>
-    </form>
-    <div class="row hidden">
-      <div class="col-xs-6" ng-show="secret">
-        <div class="input-group">
-          <input type="text" class="form-control" value="{{adminFilePath()}}" readonly />
-          <span class="input-group-btn">
-            <a class="btn btn-default" type="button" href="{{adminFilePath()}}" target="_blank">
-              Admin
-            </a>
-          </span>
-        </div>
-      </div>
-      <div ng-class="{ 'col-xs-6': secret, 'col-xs-12': !secret }">
-        <div class="input-group">
-          <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
-          <span class="input-group-btn">
-            <a class="btn btn-default" type="button" href="{{rawFilePath()}}" target="_blank">
-              Raw
-            </a>
-          </span>
-        </div>
-      </div>
-    </div>
+    </form>    
   </div>
   <div class="main__file__content" ui-view>
     <div class="main__file__content__alerts">
@@ -58,10 +36,11 @@
         This file has been updated. <strong><a ng-click="refreshFile()">Refresh</a></strong> or <a ng-click="$parent.updatedFile = null">ignore changes.</a>
       </div>
     </div>
-    <form name="editorForm" ng-submit="saveFile()">
+    <form name="editorForm">
       <div class="main__file__content__pre"
            ng-class="{ 'main__file__content__pre--readonly': !secret }"
            ui-ace="{mode: 'json', theme: 'clouds', onLoad: saveEditor}"
+           ui-validate="'noParseError($value)'"
            readonly="{{!secret}}"
            required
            ng-model="$parent.content">
