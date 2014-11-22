@@ -7,7 +7,7 @@
   left:30px;
   right:30px;
   bottom:30px;
-  background: @brand-secondary;
+  background:white;
 
 
   @media (max-width: @screen-sm-max) {
@@ -24,6 +24,7 @@
   &__editor {
 
     &__sidebar {
+      background: @brand-secondary;
       height:100%;
       position:relative;
       padding:0 10px;
@@ -62,10 +63,26 @@
       padding:0;
 
       & &__textarea {
-        font-size: 1.1em;
+        font-size: 14px;
         height: 100%;
         width:100%;
         border:0;
+      }
+
+      &__placeholder {
+        position: absolute;
+        top:50%;
+        left:50%;
+        max-width:200px;
+        text-align: center;
+        font-size:2em;
+        color:fade(@brand-primary, 40);
+        pointer-events: none;
+        .translate(-50%, -50%);
+        .transition(0.4s);
+        &.ng-hide {
+          opacity:0;
+        }  
       }
 
       &__footer {

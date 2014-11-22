@@ -14,12 +14,16 @@
   }
 
   &__heading {
+    position: relative;
     padding:5px @grid-gutter-width/2;
+    z-index:100;
+    background: white;
   }
 
   &__content {
-    .box-shadow(0 0 5px 0 @nav-tabs-border-color inset);
+    .box-shadow(0 0 5px 0 fade(black, 10) inset);
     border-top:1px solid @nav-tabs-border-color;
+    z-index:90;
     position:absolute;
     top:91px;
     left:0;
@@ -48,7 +52,7 @@
     }
 
     & &__pre {
-      font-size:1.1em;
+      font-size: 14px;
       width:100%;
       height: 100%;
       border:0;

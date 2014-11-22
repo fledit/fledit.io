@@ -11,7 +11,13 @@
 				<div class="main__file__use__box panel-body">
 					<h4><i class="fa fa-code fa-fw"></i>&nbsp; Embed</h4>
 					<p>Files on Fledit can be previewed easily through an iframe.</p>
-					<textarea class="form-control" readonly></textarea>
+					
+					<div class="well well-sm">
+				        <div class="main__file__use__box__sample"
+				             ui-ace="{mode: 'html', theme: 'clouds', onLoad: setInfiniteLines, useWrapMode: true, showGutter:false }"
+				             readonly
+				             ng-model="embed"></div>
+				    </div>
 				</div>
 
 				<div class="main__file__use__box panel-body">
@@ -35,13 +41,25 @@
 				<div class="main__file__use__box panel-body">
 					<h4><i class="fa fa-cube fa-fw"></i>&nbsp; Use in your code</h4>
 					<p>Fledit allows <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a>. The code bellow use jQuery to load this file:</p>
-					<textarea class="form-control" readonly></textarea>
+
+					<div class="well well-sm">
+				        <div class="main__file__use__box__sample"
+				             ui-ace="{mode: 'javascript', theme: 'clouds', onLoad: setInfiniteLines, useWrapMode: true, showGutter:false }"
+				             readonly
+				             ng-model="jquery"></div>
+				    </div>
 				</div>
 				
 				<div class="main__file__use__box panel-body">
 					<h4><i class="fa fa-flash fa-fw"></i>&nbsp; Subscribe to real-time updates</h4>
-					<p>Fledit relies on Socket.io to expose every single file through WebSocket. Simply join a room and start following real-time updates for this file right now.</p>
-					<textarea class="form-control" readonly></textarea>
+					<p>Fledit relies on <a href="http://socket.io/" target="_blank">Socket.io</a> to expose every single file through WebSocket. Simply join a room and start following real-time updates for this file right now.</p>
+
+					<div class="well well-sm">
+				        <div class="main__file__use__box__sample"
+				             ui-ace="{mode: 'javascript', theme: 'clouds', onLoad: setInfiniteLines, useWrapMode: true,showGutter:false }"
+				             readonly
+				             ng-model="socket"></div>
+				    </div>
 				</div>
 			</div>
 		</div>
