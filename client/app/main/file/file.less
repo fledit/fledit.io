@@ -35,6 +35,21 @@
       height:100%;
     }
 
+    &__alerts {
+      z-index: 100;
+      position:absolute;
+      top:0;
+      left:0;
+      right:0;
+      &__item {
+        .transition(0.4s);
+        &.ng-hide {
+          opacity:0;
+          .translate(0, -100%);
+        }    
+      }
+    }
+
     & &__pre {
       font-size:1.1em;
       width:100%;

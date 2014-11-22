@@ -30,9 +30,11 @@ exports.register = function(socket) {
 }
 
 function onSave(socket, doc, cb) {
+  delete doc.secret;
   socket.to("file:" + doc._id).emit('save', doc);
 }
 
 function onRemove(socket, doc, cb) {
+  delete doc.secret;
   socket.to("file:" + doc._id).emit('remove', doc);
 }

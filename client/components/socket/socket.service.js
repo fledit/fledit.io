@@ -27,7 +27,8 @@ angular.module('fledit').factory('socket', function(socketFactory) {
       subscribe: function (fileId, cb) {
         cb = cb || angular.noop; 
         // Subscrive to the given room
-        return socket.emit('subscribe', fileId, cb);        
+        socket.emit('subscribe', fileId, cb);        
+        return socket;
       },
 
       /**
@@ -35,11 +36,12 @@ angular.module('fledit').factory('socket', function(socketFactory) {
        *
        * @param fileId
        */
-      unsubscribe: function (fileId) {        
-        socket.removeAllListeners('save:' + fileId);
-        socket.removeAllListeners('remove:' + fileId);
+      unsubscribe: function (fileId) {    
+        socket.removeAllListeners('save');
+        socket.removeAllListeners('remove');
         // Subscrive to the given room
-        return socket.emit('unsubscribe', fileId);
+        socket.emit('unsubscribe', fileId);
+        return socket;
       }
     };
   });
