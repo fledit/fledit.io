@@ -13,8 +13,11 @@
 @gray-light:             lighten(#000, 60%);   // #999
 @gray-lighter:           lighten(#000, 93.5%); // #eee
 
-@brand-primary:         #062A38;
-@brand-secondary:       #4E7A96;
+@brand-primary:         #6C7A89; // light gray-blue
+@brand-primary:         #201C22; // dark purple
+@brand-primary:         #1F1D1E; // dark amber
+
+@brand-secondary:       lighten(@brand-primary, 15);
 @brand-success:         #5cb85c;
 @brand-info:            #5bc0de;
 @brand-warning:         #f0ad4e;
@@ -26,7 +29,7 @@
 // ## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg:               #264862;
+@body-bg:               lighten(@brand-primary, 5);
 //** Global text color on `<body>`.
 @text-color:            @gray-dark;
 
@@ -294,7 +297,7 @@
 //** Number of columns in the grid.
 @grid-columns:              12;
 //** Padding between columns. Gets divided in half for the left and right.
-@grid-gutter-width:         30px;
+@grid-gutter-width:         5px;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
 @grid-float-breakpoint:     @screen-sm-min;
@@ -471,8 +474,8 @@
 @state-success-bg:               #dff0d8;
 @state-success-border:           darken(spin(@state-success-bg, -10), 5%);
 
-@state-info-text:                #31708f;
-@state-info-bg:                  #c7dbe9;
+@state-info-text:                lighten(@link-color, 15);
+@state-info-bg:                  mix(@link-color, contrast(@link-color), 25);
 @state-info-border:              darken(spin(@state-info-bg, -10), 7%);
 
 @state-warning-text:             #8a6d3b;

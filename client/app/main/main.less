@@ -1,13 +1,13 @@
 .main {
 
-  .box-shadow(0 0 20px 0 #273545);
+  .box-shadow(0 0 20px 0 darken(@brand-primary, 5));
   position:absolute;
   overflow: hidden;
   top:30px;
   left:30px;
   right:30px;
   bottom:30px;
-  background: darken(@brand-secondary, 0%);
+  background: @brand-secondary;
 
   &__editor, .container-fluid, &__editor__drop > form {
     height:100%;
@@ -19,9 +19,9 @@
       height:100%;
       position:relative;
       padding:10px;
-      color:#FCFFF5;
+      color:contrast(@brand-secondary);
 
-      a { color:white; }
+      a { color:inherit; }
     }
 
     &__drop {

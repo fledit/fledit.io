@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, socket, file, $stateParams, $location, localStorageService) {
+angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, $stateParams, $location, localStorageService) {
 
   var editor = $scope.updatedFile = null
   // Save the editor instance for further update 
@@ -9,7 +9,13 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   $scope.saveEditor = function(session) { editor = session; }
   // Path to the api endpoint of the current file
   $scope.rawFilePath = function() {
-    return document.baseURI + "api/files/" + file._id;
+    var secureFile = file.clone()
+    var baseUrl = $location.absUrl().split( "/#" + $location.path() )[0]
+    return baseUrl + secureFile.getRequestedUrl();
+  };
+  // Admin link
+  $scope.adminFilePath = function() {
+    return $state.href("main.file", {id: file._id, secret: $scope.secret}, {absolute: true});
   };
   // This will parse the text content, add 
   // the secret key and save the file

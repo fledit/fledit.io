@@ -12,13 +12,27 @@
     </li>
   </ul>
   <div class="main__file__heading">
-    <div class="input-group">
-      <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
-      <span class="input-group-btn">
-        <a class="btn btn-default" type="button" href="{{rawFilePath()}}" target="_blank">
-          Raw
-        </a>
-      </span>
+    <div class="row">
+      <div class="col-xs-6" ng-show="secret">
+        <div class="input-group">
+          <input type="text" class="form-control" value="{{adminFilePath()}}" readonly />
+          <span class="input-group-btn">
+            <a class="btn btn-default" type="button" href="{{adminFilePath()}}" target="_blank">
+              Admin
+            </a>
+          </span>
+        </div>
+      </div>
+      <div ng-class="{ 'col-xs-6': secret, 'col-xs-12': !secret }">
+        <div class="input-group">
+          <input type="text" class="form-control" value="{{rawFilePath()}}" readonly />
+          <span class="input-group-btn">
+            <a class="btn btn-default" type="button" href="{{rawFilePath()}}" target="_blank">
+              Raw
+            </a>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div ng-class="{ 'main__file__content--readonly': !secret }" class="main__file__content" ui-view>
@@ -29,7 +43,7 @@
     </div>
     <form name="editorForm" ng-submit="saveFile()">
       <div class="main__file__content__pre"
-           ui-ace="{mode: 'json', onLoad: saveEditor}"
+           ui-ace="{mode: 'json', theme: 'clouds', onLoad: saveEditor}"
            readonly="{{!secret}}"
            required
            ng-model="$parent.content">

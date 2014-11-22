@@ -1,14 +1,14 @@
 <div class="main">
   <div class="container-fluid">
     <div class="row main__editor">
-      <div class="col-sm-2 main__editor__sidebar">
+      <div class="col-sm-2 main__editor__sidebar hidden-xs">
         <p class="lead">
           <a ui-sref="main"><strong>Fledit</strong></a> lets you create, share and edit a JSON file in seconds.
         </p>
       </div>
       <div class="col-sm-10 main__editor__drop" ui-view>
         <form  name="editorForm" ng-submit="addFile()">
-          <div ui-ace="{mode: 'json'}"  ng-model="$parent.newFile" required class="main__editor__drop__textarea form-control"></div>        
+          <div ui-ace="{mode: 'json', theme: 'clouds'}"  ng-model="$parent.newFile" required class="main__editor__drop__textarea form-control"></div>        
           <div class="main__editor__drop__footer">
             <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__drop__footer__save">
               Publish
