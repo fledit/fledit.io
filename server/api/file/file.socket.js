@@ -6,15 +6,30 @@
 
 var file = require('./file.model');
 
-exports.register = function(socket) {
-  
+// Subscribe to change on the file model
+exports.subscribe = function(socketio) {
+
   file.schema.post('save', function (doc) {
-    onSave(socket, doc);
+    onSave(doc);
   });
 
   file.schema.post('remove', function (doc) {
-    onRemove(socket, doc);
+    onRemove(doc);
   });  
+
+  function onSave(doc, cb) {
+    delete doc.secret;
+    socketio.to("file:" + doc._id).emit('save', doc);
+  }
+
+  function onRemove(doc, cb) {
+    delete doc.secret;
+    socketio.to("file:" + doc._id).emit('remove', doc);
+  }
+}
+
+// Handle request for a single socket client
+exports.register = function(socket) {
 
   // Allow a socket to subscribe to a file room
   socket.on("subscribe", function(id) {
@@ -27,14 +42,5 @@ exports.register = function(socket) {
   socket.on("unsubscribe", function(id) {
   	socket.leave('file:' + id);
   });
-}
 
-function onSave(socket, doc, cb) {
-  delete doc.secret;
-  socket.to("file:" + doc._id).emit('save', doc);
-}
-
-function onRemove(socket, doc, cb) {
-  delete doc.secret;
-  socket.to("file:" + doc._id).emit('remove', doc);
-}
+};

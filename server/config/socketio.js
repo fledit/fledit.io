@@ -37,6 +37,9 @@ module.exports = function (socketio) {
   //   handshake: true
   // }));
 
+  // Subscribe to change on the file model
+  require('../api/file/file.socket').subscribe(socketio);
+
   socketio.on('connection', function (socket) {
     socket.address = socket.handshake.address !== null ?
             socket.handshake.address.address + ':' + socket.handshake.address.port :

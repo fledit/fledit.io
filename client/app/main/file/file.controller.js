@@ -4,7 +4,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
 
   var editor = $scope.updatedFile = null
   // Save the editor instance for further update 
-  // @tofix: ui-ace doesn't support change from the scope, updating the editor
+  // @tofix: ui-ace doesn't support changes from the scope, updating the editor
   // is a temporary solution (clue: ngModel.$render isn't called).
   $scope.saveEditor = function(session) { editor = session; }
   // Path to the api endpoint of the current file
@@ -14,8 +14,10 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // This will parse the text content, add 
   // the secret key and save the file
   $scope.saveFile = function() {
+    // Avoid reloading file
+    $scope.updatedFile = null;
     // Allows edition
-    file.secret  = $scope.secret;
+    file.secret = $scope.secret;
     // Parse text content to JSON
     file.content = angular.fromJson($scope.content) 
     // And save
@@ -28,10 +30,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   };
   // Use the $scope.updatedFile to update the file object (once)
   $scope.mustRefreshFile = function() {
-    return $scope.updatedFile !== null && !_.isEqual(
-      $scope.updatedFile.content, 
-      angular.fromJson($scope.content)
-    )
+    return $scope.updatedFile !== null && !_.isEqual($scope.updatedFile.content, file.content);
   };
   // File change only when the parsed edtior content is different than the one
   // save into the file object. Parsing error returns false.
@@ -46,7 +45,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // Unsubscribe to the file when the scope is destroyed
   $scope.$on("$destroy", function() { socket.unsubscribe(file._id) });  
   // Subscribe to 
-  socket.subscribe(file._id).on("save", function(updatedFile) {        
+  socket.subscribe(file._id).on("save", function(updatedFile) {    
     $scope.updatedFile = updatedFile;
   });
 
