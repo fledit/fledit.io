@@ -1,3 +1,52 @@
-<div class="col-md-12">
-	This is the use view.
+<div class="main__file__use">
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-share-alt fa-fw"></i>&nbsp; Spread the word</h4>
+					<p>You can use the following URL to share this file in read-only mode.</p>
+					<input type="text" class="form-control" ng-value="publicFilePath()" readonly />
+				</div>
+
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-code fa-fw"></i>&nbsp; Embed</h4>
+					<p>Files on Fledit can be previewed easily through an iframe.</p>
+					<textarea class="form-control" readonly></textarea>
+				</div>
+
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-code-fork fa-fw"></i>&nbsp; Duplicate</h4>
+					<p>You like this file but cannot edit it as well? Duplicate it to acquire writing rights.</p>
+					<button class="btn btn-primary">
+						Create a new file from this one
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class=""></div>
+
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-database fa-fw"></i>&nbsp; Raw data</h4>
+					<p>The API exposes the raw file.</p>
+					<input type="text" ng-value="rawFilePath()" class="form-control" readonly />
+				</div>
+
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-cube fa-fw"></i>&nbsp; Use in your code</h4>
+					<p>Fledit allows <a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a>. The code bellow use jQuery to load this file:</p>
+					<textarea class="form-control" readonly></textarea>
+				</div>
+				
+				<div class="main__file__use__box panel-body">
+					<h4><i class="fa fa-flash fa-fw"></i>&nbsp; Subscribe to real-time updates</h4>
+					<p>Fledit relies on Socket.io to expose every single file through WebSocket. Simply join a room and start following real-time updates for this file right now.</p>
+					<textarea class="form-control" readonly></textarea>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>

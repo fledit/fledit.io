@@ -2,7 +2,9 @@
 
 angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, $stateParams, $location, localStorageService) {
 
-  var editor = $scope.updatedFile = null
+  var editor = $scope.updatedFile = null;
+  // Copy of the database file to watch changes
+  var master = file.clone();
   // Save the editor instance for further update 
   // @tofix: ui-ace doesn't support changes from the scope, updating the editor
   // is a temporary solution (clue: ngModel.$render isn't called).
@@ -17,6 +19,10 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   $scope.adminFilePath = function() {
     return $state.href("main.file", {id: file._id, secret: $scope.secret}, {absolute: true});
   };
+  // Public link
+  $scope.publicFilePath = function() {
+    return $state.href("main.file", {id: file._id}, {absolute: true});
+  };
   // This will parse the text content, add 
   // the secret key and save the file
   $scope.saveFile = function() {
@@ -27,7 +33,11 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
     // Parse text content to JSON
     file.content = angular.fromJson($scope.content) 
     // And save
-    file.save();    
+    file.save().then( function(updatedFile) {      
+      file.updated_at = updatedFile.updated_at
+      // Update local copy
+      master = file.clone() 
+    });
   };
   // Use the $scope.updatedFile to update the file object (once)
   $scope.refreshFile = function() {
@@ -36,13 +46,14 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   };
   // Use the $scope.updatedFile to update the file object (once)
   $scope.mustRefreshFile = function() {
-    return $scope.updatedFile !== null && !_.isEqual($scope.updatedFile.content, file.content);
+    return $scope.updatedFile !== null && $scope.updatedFile.updated_at !== file.updated_at; 
   };
   // File change only when the parsed edtior content is different than the one
   // save into the file object. Parsing error returns false.
   $scope.fileChanged = function() {
     try {
-      return ! _.isEqual(angular.fromJson($scope.content), file.content);
+      content = angular.fromJson($scope.content)
+      return ! _.isEqual(content, file.content) || !_.isEqual(file.name, master.name);
     } catch(e) {
       return false
     }
@@ -73,7 +84,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
     if(file) {
       // Stringify received JSON to allow edition
       $scope.file = file;
-      $scope.content = angular.toJson(file.content, true);    
+      $scope.content = angular.toJson(file.content, true);
       // Does the editor already rexist?
       if(editor && editor.getValue() !== $scope.content ) { 
         editor.setValue($scope.content); 

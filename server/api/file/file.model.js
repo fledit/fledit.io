@@ -21,12 +21,29 @@ var FileSchema = new Schema({
   content: {
     type: Object,
     require: true
+  },
+  created_at: { 
+    type: Date
+  },
+  updated_at: { 
+    type: Date
   }
+}, {
+  versionKey: "revision"
 });
 
 FileSchema.plugin(hash, {
   field: "secret",
   size: 16
+});
+
+FileSchema.pre('save', function(next){
+  var now = new Date();
+  // Autofill "updated_at" everytime
+  this.updated_at = now;
+  // Autofill "created_at" field once
+  if ( !this.created_at ) { this.created_at = now; }
+  next();
 });
 
 module.exports = mongoose.model('File', FileSchema);

@@ -43,8 +43,9 @@ exports.update = function(req, res) {
   File.findOne({_id: req.params.id, secret: req.body.secret}, function (err, file) {
     if (err) { return handleError(res, err); }
     if(!file) { return res.send(404); }
-    // Only content can be changed    
+    // Only content and name can be changed    
     file.content = req.body.content;
+    file.name    = req.body.name;
     // Avoid secret regeneration    
     file.secret = req.body.secret;    
     file.save(function (err) {
