@@ -13,7 +13,13 @@
                     {{file.name || "Untitled"}}
                 </a>
             </h4>
-            <p class="text-muted">Last update <time>{{file.updated_at|date:'short'}}</time></p>
+            <p class="text-muted main__mine__files__item__meta">
+                <a ui-sref="main.file.use({id: file._id})">Use</a>
+                —
+                <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
+                —
+                Last update <time>{{file.updated_at|date:'short'}}</time>
+            </p>
         </li>
     </ul>
 </div>

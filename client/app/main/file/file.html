@@ -1,4 +1,11 @@
 <div class="main__file">
+  <div class="main__file__meta hidden-xs">
+    <span ng-show="secret">
+      <a ui-sref="main.file({id: file._id, secret: secret})">Admin link</a>
+      —
+    </span>
+    Last update <time>{{file.updated_at|date:'short'}}</time>
+  </div>
   <ul class="nav nav-tabs main__file__tabs" role="tablist">
     <li ui-sref-active-eq="active">
       <a ui-sref="main.file({id: file._id })">
@@ -12,21 +19,19 @@
     </li>
   </ul>
   <div class="main__file__heading">
-    <form name="nameForm" ng-submit="saveFile()">
-      <div class="row">      
-        <div class="col-xs-12" ng-show="secret">
-          <div class="input-group">
-            <input type="text" placeholder="You can optinaly choose a name for this file" class="form-control" ng-model="file.name" />                
-            <span class="input-group-btn">
-              <button type="submit" ng-disabled="!fileChanged()" class="btn btn-primary">
-                Save
-              </button>
-            </span>
-          </div>
+    <form name="nameForm" ng-submit="saveFile()">  
+      <div ng-show="secret">
+        <div class="input-group">
+          <input type="text" placeholder="You can optinaly choose a name for this file" class="form-control" ng-model="file.name" />                
+          <span class="input-group-btn">
+            <button type="submit" ng-disabled="!fileChanged()" class="btn btn-primary">
+              Save
+            </button>
+          </span>
         </div>
-        <div class="col-xs-12" ng-hide="secret">
-          <input type="text" class="form-control" ng-value="file.name || 'Untitled file'" readonly />                
-        </div>
+      </div>
+      <div ng-hide="secret">
+        <input type="text" class="form-control" ng-value="file.name || 'Untitled file'" readonly />                
       </div>
     </form>    
   </div>
