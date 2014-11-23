@@ -2,7 +2,7 @@
 
 angular.module('fledit').config(function ($stateProvider) {
   $stateProvider.state('main.file', {
-    url: ':id?secret',
+    url: 'file/:id?secret',
     data: {
       secret: { value: null }
     },

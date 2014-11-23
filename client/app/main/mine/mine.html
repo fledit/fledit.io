@@ -1,0 +1,19 @@
+<div class="main__mine">
+    <h2>Your files</h2>
+    <p class="lead">
+        Fledit uses a painless saving system based on your past actions. 
+        No need to sign up: once you created a file or used its secret, it will 
+        be available from this page. 
+    </p>
+
+    <ul class="list-unstyled main__mine__files">
+        <li ng-repeat="file in myfiles | orderBy:'-updated_at'" class="main__mine__files__item">            
+            <h4 class="main__mine__files__item__title">
+                <a ui-sref="main.file({ id: file._id })">
+                    {{file.name || "Untitled"}}
+                </a>
+            </h4>
+            <p class="text-muted">Last update <time>{{file.updated_at|date:'short'}}</time></p>
+        </li>
+    </ul>
+</div>

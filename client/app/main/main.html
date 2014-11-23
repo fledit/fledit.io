@@ -9,12 +9,15 @@
           Create, share and edit a JSON file in seconds.
         </p>
         <div class="btn-group btn-block main__editor__sidebar__action" dropdown is-open="viewMyFiles" ng-show="myfiles.length">
-          <button type="button" dropdown-toggle class="btn btn-block btn-primary">
-            Your files &nbsp;<i class="fa fa-caret-down"></i>
+          <button type="button" ui-sref="main.mine" class="btn btn-primary col-lg-10 col-sm-9">
+            Your files
+          </button>
+          <button type="button" class="btn btn-primary col-lg-2 col-sm-3"  dropdown-toggle>
+            <i class="fa fa-caret-down"></i>
           </button>
           <ul class="dropdown-menu main__editor__sidebar__action__dropdown">
-            <li ng-repeat="file in myfiles | orderBy:'name'" ui-sref-active="main__editor__sidebar__action__dropdown__active">
-              <a href="#" ui-sref="main.file({ id: file._id })">
+            <li ng-repeat="file in myfiles | orderBy:'-updated_at'" ui-sref-active="main__editor__sidebar__action__dropdown__active">
+              <a ui-sref="main.file({ id: file._id })">
                 {{file.name || "Untitled"}}
               </a>
             </li>
