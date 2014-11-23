@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restangular) {
+angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restangular, filemanager) {
 
   $scope.addFile = function() {
     Restangular.all('files').post({ content: angular.fromJson($scope.newFile) }).then(function(data) {
@@ -22,5 +22,12 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restan
       return false;
     }
   };
+
+  // Watch the filemanager changes
+  $scope.$watch( function() { return filemanager.all(); }, function(all) {
+    // Get all files
+    $scope.myfiles = _.values(all); 
+  // Watch for content changes
+  }, true);
 
 });

@@ -6,7 +6,6 @@ angular.module('fledit').config(function ($stateProvider) {
     data: {
       secret: { value: null }
     },
-    reloadOnSearch: false,
     templateUrl: 'app/main/file/file.html',
     controller: 'MainFileCtrl',
     resolve: {

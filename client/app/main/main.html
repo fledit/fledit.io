@@ -3,14 +3,27 @@
     <div class="row main__editor">
       <div class="col-sm-2 main__editor__sidebar hidden-xs">
         <a ui-sref="main" class="main__editor__sidebar__brand">
-          <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; Fledit
+          <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; Fledit <sup>beta</sup>
         </a>
         <p class="lead">
           Create, share and edit a JSON file in seconds.
         </p>
-        <a class="btn btn-primary btn-block main__editor__sidebar__new" ui-sref="main" ng-hide="'main' | isState">
+        <div class="btn-group btn-block main__editor__sidebar__action" dropdown is-open="viewMyFiles" ng-show="myfiles.length">
+          <button type="button" dropdown-toggle class="btn btn-block btn-primary">
+            Your files &nbsp;<i class="fa fa-caret-down"></i>
+          </button>
+          <ul class="dropdown-menu main__editor__sidebar__action__dropdown">
+            <li ng-repeat="file in myfiles | orderBy:'name'" ui-sref-active="main__editor__sidebar__action__dropdown__active">
+              <a href="#" ui-sref="main.file({ id: file._id })">
+                {{file.name || "Untitled"}}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <a class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main" ng-hide="'main' | isState">
           New file
         </a>
+
       </div>
       <div class="col-sm-10 main__editor__drop" ui-view>
         <form  name="editorForm" ng-submit="addFile()">

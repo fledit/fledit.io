@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, $stateParams, $location, localStorageService) {
-
+angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, $stateParams, $location, filemanager) {
   var editor = $scope.updatedFile = null;
   // Copy of the database file to watch changes
   var master = file.clone();
@@ -49,6 +48,8 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
       file.updated_at = updatedFile.updated_at
       // Update local copy
       master = file.clone() 
+      // Update the file manager
+      filemanager.save(file);
     });
   };
   // Use the $scope.updatedFile to update the file object (once)
@@ -80,14 +81,14 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
 
   // If a secret is given, we must store it and change search
   if($stateParams.secret) {
-    $scope.secret = $stateParams.secret;
+    file.secret = $scope.secret = $stateParams.secret;
     // Save the secret token in local storage
-    localStorageService.set($stateParams.id, $stateParams.secret);
+    filemanager.save(file);
     // Reset the search parameter
     $location.search("secret", null);
   // A secret might by given from localstorage
-  } else if(localStorageService.get($stateParams.id) ) {
-    $scope.secret = localStorageService.get($stateParams.id);
+  } else if( filemanager.allowed($stateParams.id) ) {
+    $scope.secret = filemanager.secret($stateParams.id);
   }
 
   // Watch current file instance

@@ -43,16 +43,33 @@
         &:hover, &:active, &:focus { 
           text-decoration: none;
         }
+
+        sup {
+          font-size:0.3em;
+          opacity:0.7;
+          text-transform: uppercase;
+          position: relative;
+          top:-10px;
+        }
       }
 
       a { color:inherit; }
 
-      &__new {        
+      &__action {        
         .transition(0.4s);
+        
         &.ng-hide {
           opacity:0;
           .translate(-100%, 0);
-        }  
+        } 
+
+        &__dropdown {
+          min-width:100%;
+
+          & &__active > a {
+            font-weight:bold; 
+          } 
+        }
       }
     }
 
