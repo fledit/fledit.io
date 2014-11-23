@@ -1,9 +1,17 @@
 'use strict';
 
 angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restangular, filemanager) {
-
+  
   $scope.addFile = function() {
-    Restangular.all('files').post({ content: angular.fromJson($scope.newFile) }).then(function(data) {
+    
+    var data = { 
+      content: angular.fromJson($scope.newFile) 
+    };
+    
+    // Turn off any existing error
+    $scope.error = null;
+
+    Restangular.all('files').post(data).then(function(data) {
       // Success!
       if(data._id) {
         // Reset the scope value
@@ -11,6 +19,10 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restan
         // Go to the file view
         $state.go("main.file", { id: data._id, secret: data.secret });
       }
+    // Something's wrong
+    }, function(res) {
+      // Simply update the scope
+      $scope.error = res.data.error;
     });
   };
 

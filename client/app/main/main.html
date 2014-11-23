@@ -28,7 +28,12 @@
         </a>
 
       </div>
-      <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>
+      <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>        
+        <div class="main__editor__drop__alerts">
+          <div class="alert alert-danger text-center main__editor__drop__alerts__item" ng-show="error">
+            {{error}}
+          </div>
+        </div>
         <form  name="editorForm" ng-submit="addFile()">
           <div ui-ace="{mode: 'json', theme: 'clouds'}"  
                ng-model="$parent.newFile"
