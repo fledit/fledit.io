@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainFileUseCtrl', function ($scope, $http, $location, file) {
+angular.module('fledit').controller('MainFileUseCtrl', function ($scope, $state, $http, $location, file) {
 
 	$scope.setInfiniteLines = function(editor) {
 		editor.setOptions({
@@ -29,8 +29,8 @@ angular.module('fledit').controller('MainFileUseCtrl', function ($scope, $http, 
 	].join("\n")
 
 	$scope.embed = [
-		"<iframe  width=\"100%\" height=\"400\" ",
-		"src=\"" + $scope.publicFilePath() + "\" ",
+		"<iframe  width=\"100%\" height=\"500\" ",
+		"src=\"" + $state.href("embed", { id: file._id }, { absolute: true }) + "\" ",
 		"frameborder=\"0\" allowfullscreen>",
 		"</iframe>"
 	].join("")

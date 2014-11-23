@@ -1,0 +1,16 @@
+<div class="embed">
+	<div class="embed__header">
+		<h5 class="embed__header__title">{{file.name || "Untitled"}}</h5>
+		<span class="embed__header__meta">
+			Last update {{file.updated_at|date:'short'}}
+            —
+			<a ui-sref="main.file({id: file._id})" target="_blank">View on Fledit</a>
+		</span>
+	</div>
+
+	<div class="embed__content"
+     	 ui-ace="{mode: 'json', theme: 'clouds'}"
+         readonly
+         ng-model="content">
+	</div>
+</div>

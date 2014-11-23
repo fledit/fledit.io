@@ -1,0 +1,36 @@
+.embed {
+
+	&__header {
+		padding:0 10px;
+		height:30px;
+		line-height: 30px;
+		white-space: nowrap;
+		background: @brand-secondary;
+		color:contrast(@brand-secondary);
+
+		& &__title {
+			margin:0;
+			height:inherit;
+			line-height: inherit;
+			font-weight:bold;
+			display: inline-block;
+		}
+
+		&__meta {
+			margin-left:10px;
+			color:fade(contrast(@brand-secondary), 70);
+			a {
+				color:fade(contrast(@brand-secondary), 90);
+			}
+		}
+	}
+
+	& &__content {
+		height: auto;
+		position:absolute;
+		top:30px;
+		left:0;
+		right:0;
+		bottom:0;
+	} 
+}
