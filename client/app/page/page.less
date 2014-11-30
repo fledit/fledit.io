@@ -1,51 +1,33 @@
 .page {
 	@corner-bg: darken(@body-bg, 3%);
 	color:contrast(@body-bg);
-	font-size:1.2em;
+	font-size:1em;
 	padding:80px 0;
 	padding:80px 0;	
 
-
-	&:before,
-	&:after {
-		content:"";
-		position: fixed;
-		border:100px solid transparent;
-		z-index: 20;
-
-	    @media (max-width: @screen-sm-min) {
-	    	border-width: 50px;
-	    }
-
-	}
-
 	&:before {
-		border-left-color: @corner-bg;
+		content:"";
+		position: absolute;
+		border:200px solid transparent;
 		border-top-color: @corner-bg;
-		top:0;
-		left:0;		
-	}
-
-	&:after {
-		border-right-color: @corner-bg;
-		border-bottom-color: @corner-bg;
-		bottom:0;
-		right:0;		
+		z-index: -1;
+		left:50%;		
+		top:0; 
+		.translate(-50%, 0);
 	}
 
 	&__back,
 	&__back:hover,
 	&__back:active {
 		position: fixed;
-		top:20px;
-		left:20px;
+		top:10px;
+		left:10px;
 		color: inherit;
 		z-index: 20;
+		text-shadow: 0 0 10px @body-bg;
 
 	    @media (max-width: @screen-sm-min) {
-	    	top:0;
-	    	padding:0 10px;
-	    	font-size:2em;
+	    	position: absolute;
 	    }
 	}
 
@@ -53,6 +35,10 @@
 
 		position: relative;
 		z-index: 10;
+
+		a {
+			color: mix( contrast(@body-bg), @link-color, 60);
+		}
 
 		&__title {
 			text-align: center;

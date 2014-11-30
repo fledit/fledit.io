@@ -22,7 +22,7 @@
     <form name="nameForm" ng-submit="saveFile()">  
       <div ng-show="secret">
         <div class="input-group">
-          <input type="text" placeholder="You can optinaly choose a name for this file" class="form-control" ng-model="file.name" />                
+          <input type="text" placeholder="You can optinaly choose a name for this file" class="form-control main__file__heading__name" ng-model="file.name" />
           <span class="input-group-btn">
             <button type="submit" ng-disabled="!fileChanged()" class="btn btn-primary">
               Save

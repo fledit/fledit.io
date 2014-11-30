@@ -5,8 +5,8 @@ var File = require('./file.model');
 var RateLimiter = require('limiter').RateLimiter;
 // We can't allow more than 10 try to get file with secret by hour
 var secretLimiter = new RateLimiter(10, 'hour');
-// We can't allow more than 40 creations by hour
-var createLimiter = new RateLimiter(40, 'hour');
+// We can't allow more than 30 creations by hour
+var createLimiter = new RateLimiter(30, 'hour');
 
 
 function handleError(res, err) {
