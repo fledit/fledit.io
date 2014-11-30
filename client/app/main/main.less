@@ -1,27 +1,35 @@
 .main {
 
-  .box-shadow(0 0 20px 0 darken(@brand-primary, 5));
-  position:absolute;
-  overflow: hidden;
-  top:30px;
-  left:30px;
-  right:30px;
-  bottom:30px;
-  background:white;
 
-
-  @media (max-width: @screen-sm-max) {
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-  }
-
-  &__editor, .container-fluid, &__editor__drop > form {
+  .container-fluid, &__editor__drop > form {
     height:100%;
   }
 
+  &__wrapper {
+    position:relative;
+  }
+
+  &__landing {
+    position: relative;    
+  }
+
   &__editor {
+
+    overflow: hidden;
+    background:white;
+    position:absolute;
+    top:30px;
+    left:30px;
+    right:30px;
+    bottom:30px;
+    .box-shadow(0 0 20px 0 darken(@brand-primary, 5));
+
+    @media (max-width: @screen-sm-max) {
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+    }
 
     &__sidebar {
       background: @brand-secondary;

@@ -1,44 +1,48 @@
 <div class="main">
-  <div class="container-fluid">
-    <div class="row main__editor">
-      <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs">
-        <a ui-sref="main" class="main__editor__sidebar__brand">
-          <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; Fledit <sup>beta</sup>
-        </a>
-        <p class="lead">
-          Create, share and edit a JSON file in seconds.
-        </p>
+  <div class="main__wrapper" screen-height="400">
+    <div class="container-fluid">
+      <div class="row main__editor">
+        <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs">
+          <a ui-sref="main" class="main__editor__sidebar__brand">
+            <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; 
+            Fledit <sup>beta</sup>
+          </a>
+          <p class="lead">
+            Create, share and edit a JSON file in seconds.
+          </p>
 
-        <a ui-sref="main.mine" class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
-          Your files
-        </a>
-        <a class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main" ng-hide="'main' | isState">
-          New file
-        </a>
+          <a ui-sref="main.mine" class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
+            Your files
+          </a>
+          <a class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main" ng-hide="'main' | isState">
+            New file
+          </a>
 
-      </div>
-      <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>        
-        <div class="main__editor__drop__alerts">
-          <div class="alert alert-danger text-center main__editor__drop__alerts__item" ng-show="error">
-            {{error}}
-          </div>
         </div>
-        <form  name="editorForm" ng-submit="addFile()">
-          <div ui-ace="{mode: 'json', theme: 'clouds'}"  
-               ng-model="$parent.newFile"
-               required 
-               ui-validate="'noParseError($value)'"
-               class="main__editor__drop__textarea form-control"></div>        
-          <div class="main__editor__drop__footer">
-            <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__drop__footer__save">
-              Publish the new file 
-            </button>
+        <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>        
+          <div class="main__editor__drop__alerts">
+            <div class="alert alert-danger text-center main__editor__drop__alerts__item" ng-show="error">
+              {{error}}
+            </div>
           </div>
-          <div class="main__editor__drop__placeholder" ng-show="!newFile">
-            Copy &amp; past a JSON file here or start typing! 
-          </div>
-        </form>
-      </div>    
+          <form  name="editorForm" ng-submit="addFile()">
+            <div ui-ace="{mode: 'json', theme: 'clouds'}"  
+                 ng-model="$parent.newFile"
+                 required 
+                 ui-validate="'noParseError($value)'"
+                 class="main__editor__drop__textarea form-control"></div>        
+            <div class="main__editor__drop__footer">
+              <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__drop__footer__save">
+                Publish the new file 
+              </button>
+            </div>
+            <div class="main__editor__drop__placeholder" ng-show="!newFile">
+              Copy &amp; past a JSON file here or start typing! 
+            </div>
+          </form>
+        </div>    
+      </div>
     </div>
   </div>
+  <div class="main__landing"></div>
 </div>
