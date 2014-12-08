@@ -389,7 +389,7 @@ module.exports = function (grunt) {
       },
       heroku: {
         options: {
-          remote: 'heroku',
+          remote: 'git@heroku.com:fledit.git',
           branch: 'master'
         }
       }
