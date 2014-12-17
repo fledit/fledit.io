@@ -6,7 +6,7 @@ angular.module('fledit').config(function ($stateProvider) {
         templateUrl: 'app/embed/embed.html',
         controller: 'EmbedCtrl',
         resolve: {
-            file: function($stateParams, Restangular, localStorageService) {
+            file: function($stateParams, Restangular) {
                 return Restangular.one("files", $stateParams.id).get();
             }
         }

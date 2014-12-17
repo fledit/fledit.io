@@ -1,13 +1,20 @@
 'use strict';
 
-angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restangular, filemanager) {
-  
+angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, Restangular, filemanager) {
+
+  var loadFiles = function() {
+    filemanager.all().then(function(files) {
+      // Get all files
+      $scope.myfiles = _.values(files);
+    });
+  };
+
   $scope.addFile = function() {
-    
-    var data = { 
-      content: angular.fromJson($scope.newFile) 
+
+    var data = {
+      content: angular.fromJson($scope.newFile)
     };
-    
+
     // Turn off any existing error
     $scope.error = null;
 
@@ -35,11 +42,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, Restan
     }
   };
 
-  // Watch the filemanager changes
-  $scope.$watch( function() { return filemanager.all(); }, function(all) {
-    // Get all files
-    $scope.myfiles = _.values(all); 
-  // Watch for content changes
-  }, true);
+  $scope.$on("filemanager:updated", loadFiles);
+  loadFiles();
 
 });
