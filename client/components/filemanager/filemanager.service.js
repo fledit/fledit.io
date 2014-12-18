@@ -42,7 +42,7 @@ angular.module('fledit').factory('filemanager', function($q, $rootScope) {
     secret: function(id) {
       var deferred = $q.defer();
       this.get(id).then(function(file) {
-        deferred.resolve(file.secret);
+        deferred.resolve(file ? file.secret : undefined);
       });
       return deferred.promise;
     },
