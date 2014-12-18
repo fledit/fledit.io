@@ -9,10 +9,10 @@ angular.module('fledit').config(function ($stateProvider) {
     templateUrl: 'app/main/file/file.html',
     controller: 'MainFileCtrl',
     resolve: {
-      file: function($stateParams, Restangular, localStorageService) {
+      file: function($stateParams, Restangular) {
         var params = {
-          // Take secret from parameter OR localstorage
-          secret: $stateParams.secret || localStorageService.get($stateParams.id)
+          // Take secret from parameter
+          secret: $stateParams.secret
         };
         return Restangular.one("files", $stateParams.id).get(params);
       }
