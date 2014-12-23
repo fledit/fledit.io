@@ -22,11 +22,15 @@ var FileSchema = new Schema({
     type: Object,
     require: true
   },
-  created_at: { 
+  created_at: {
     type: Date
   },
-  updated_at: { 
+  updated_at: {
     type: Date
+  },
+  validator: {
+    type: Schema.Types.ObjectId,
+    ref: 'File'
   }
 }, {
   versionKey: "revision"

@@ -6,6 +6,7 @@ angular.module('fledit', [
   'ngAnimate',
   'restangular',
   'ui.router',
+  'ui.router.router',
   'ui.bootstrap',
   'ui.ace',
   'ui.validate',

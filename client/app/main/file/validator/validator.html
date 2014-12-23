@@ -1,0 +1,19 @@
+<form class="main__file__validator" name="validatorForm" ng-submit="submitValidator()">
+  <div class="modal-header main__file__validator__header">
+    <div class="input-group">
+      <input type="url"
+             placeholder="URL of the validator on Fledit"
+             class="form-control"
+             ui-validate="'validUrl($value)'"
+             ng-model="validator" />
+      <span class="input-group-btn">
+        <button type="submit" ng-disabled="!validatorForm.$valid" class="btn btn-primary">
+          Validate
+        </button>
+      </span>
+    </div>
+  </div>
+  <div class="modal-body main__file__validator__body">
+    <p class="lead">Adding a validator helps you to control that a file respects a given <a href="http://json-schema.org/" target="_blank">JSON schema</a>.</p>
+  </div>
+</form>

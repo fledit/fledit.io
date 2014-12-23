@@ -29,16 +29,16 @@ exports.show = function(req, res) {
 
   var callback = function (err, file) {
     // Something happend
-    if(err) { 
+    if(err) {
       return handleError(res, err);
-    // Wrong secret 
-    } else if(!file && secret) { 
+    // Wrong secret
+    } else if(!file && secret) {
       // Notice the limiter
-      secretLimiter.removeTokens(1, function() {     
+      secretLimiter.removeTokens(1, function() {
         return handleError(res, {error: "Wrong secret"});
       });
     // File not found
-    } else if(!file) {       
+    } else if(!file) {
       return res.send(404);
     // Everything is OK
     } else {
@@ -80,17 +80,18 @@ exports.update = function(req, res) {
   }
   File.findOne({_id: req.params.id, secret: req.body.secret}, function (err, file) {
     if (err) { return handleError(res, err); }
-    if(!file) { 
+    if(file === null) {
       // Notice the limiter
-      secretLimiter.removeTokens(1, function() {     
-        return res.send(404); 
+      secretLimiter.removeTokens(1, function() {
+        return res.send(404);
       });
     }
-    // Only content and name can be changed    
-    file.content = req.body.content;
-    file.name    = req.body.name;
-    // Avoid secret regeneration    
-    file.secret = req.body.secret;    
+    // Only content and name can be changed
+    file.content   = req.body.content;
+    file.name      = req.body.name;
+    file.validator = req.body.validator;
+    // Avoid secret regeneration
+    file.secret = req.body.secret;
     file.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.json(200, file);

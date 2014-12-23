@@ -8,7 +8,7 @@
     .small();
     padding: @nav-link-padding;
     height: @line-height-base;
-    line-height: @line-height-base;    
+    line-height: @line-height-base;
   }
 
   &__tabs {
@@ -32,6 +32,11 @@
 
     &__name {
       font-weight: bold;
+    }
+
+    &__validator {
+      margin-left: 5px;
+      float: right;
     }
   }
 
@@ -62,7 +67,7 @@
         &.ng-hide {
           opacity:0;
           .translate(0, -100%);
-        }    
+        }
       }
     }
 
@@ -82,8 +87,8 @@
       text-align: right;
       position:absolute;
       right:10px;
-      bottom:10px;   
-      overflow: hidden;     
+      bottom:10px;
+      overflow: hidden;
 
       &__save {
         border-radius: 0;
