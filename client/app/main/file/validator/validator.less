@@ -1,7 +1,19 @@
 .main__file__validator {
 
   &__body {
-    padding-bottom:0;
+    margin:0;
+    padding-bottom:5px;
+
+    &--valid {
+      color: @state-success-text;
+      background: @state-success-bg;
+    }
+
+    &--invalid {
+      color: @state-danger-text;
+      background: @state-danger-bg;
+    }
+
   }
 
   &__footer {
