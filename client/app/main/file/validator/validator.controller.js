@@ -3,6 +3,7 @@
 angular.module('fledit').controller('ValidatorCtrl', function ($scope, $state, $urlMatcherFactory, $modalInstance, Restangular, validator, file, secret) {
 
   $scope.file = file;
+  $scope.secret = secret;
   $scope.validator = validator;
   $scope.close = $modalInstance.close;
 
