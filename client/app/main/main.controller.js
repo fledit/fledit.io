@@ -24,7 +24,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, Re
         // Reset the scope value
         $scope.newFile = '';
         // Go to the file view
-        $state.go("main.file", { id: data._id, secret: data.secret });
+        $state.go("main.file.use", { id: data._id, secret: data.secret });
       }
     // Something's wrong
     }, function(res) {
