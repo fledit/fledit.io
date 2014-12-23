@@ -63,7 +63,6 @@ FileSchema.pre('save', function(next){
         next();
       } else {
         file.valid = tv4.validate(file.content, validator.content);
-        console.log(file.content, tv4.error)
         next();
       }
     });
