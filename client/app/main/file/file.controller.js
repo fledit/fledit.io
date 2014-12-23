@@ -46,6 +46,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
     // And save
     file.save().then( function(updatedFile) {
       file.updated_at = updatedFile.updated_at
+      file.valid      = updatedFile.valid
       // Update local copy
       master = file.clone()
       // Update the file manager

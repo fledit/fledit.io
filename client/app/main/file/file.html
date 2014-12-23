@@ -21,9 +21,16 @@
   <div class="main__file__heading">
     <form name="nameForm" ng-submit="saveFile()">
       <div ng-show="secret">
-        <a class="btn btn-default main__file__heading__validator" ui-sref="main.file.validator">
-          <i class="fa fa-check"></i>&nbsp;
-          Validator
+        <a class="btn btn-default main__file__heading__validator"
+           ng-class="{
+            'btn-default': file.valid === null,
+            'btn-danger' : file.valid === false,
+            'btn-success': file.valid === true
+           }"
+           ui-sref="main.file.validator">
+          <i class="fa fa-check" ng-if="file.valid === true || file.valid === null"></i>
+          <i class="fa fa-times" ng-if="file.valid === false"></i>
+          &nbsp; Validator
         </a>
         <div class="input-group">
           <input type="text" placeholder="You can optinaly choose a name for this file" class="form-control main__file__heading__name" ng-model="file.name" />

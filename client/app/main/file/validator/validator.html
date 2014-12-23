@@ -5,7 +5,7 @@
              placeholder="URL of the validator on Fledit"
              class="form-control"
              ui-validate="'validUrl($value)'"
-             ng-model="validator" />
+             ng-model="validatorUrl" />
       <span class="input-group-btn">
         <button type="submit" ng-disabled="!validatorForm.$valid" class="btn btn-primary">
           Validate
@@ -14,6 +14,25 @@
     </div>
   </div>
   <div class="modal-body main__file__validator__body">
-    <p class="lead">Adding a validator helps you to control that a file respects a given <a href="http://json-schema.org/" target="_blank">JSON schema</a>.</p>
+    <p class="lead" ng-if="file.valid === null">
+      Adding a validator helps you to control that a file respects a given <a href="http://json-schema.org/" target="_blank">JSON schema</a>.
+    </p>
+    <p class="lead text-success" ng-if="file.valid === true">
+      <i class="fa fa-check"></i>&nbsp; This file is valid.
+      <a ng-click="close()" class="btn btn-default pull-right btn-sm" ui-sref="main.file({ id: validator._id })">
+        See the validation schema
+      </a>
+    </p>
+    <p class="lead text-danger" ng-if="file.valid === false">
+      <i class="fa fa-times"></i>&nbsp; This file isn't valid.
+      <a ng-click="close()" class="btn btn-default pull-right btn-sm" ui-sref="main.file({ id: validator._id })">
+        See the validation schema
+      </a>
+    </p>
+  </div>
+  <div class="text-right modal-footer well main__file__validator__footer hidden">
+    <button ng-click="close()" class="btn btn-primary">
+      Close
+    </button>
   </div>
 </form>
