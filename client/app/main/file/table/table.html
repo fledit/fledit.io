@@ -1,6 +1,13 @@
 <div class="main__file__table">
   <hot-table
+      class="main__file__table__view"
+      ng-if="hasTableView()"
       settings="tableSettings"
       datarows="fileAsTable">
   </hot-table>
+  <div ng-if="!hasTableView() || !tableSettings.columns.length" class="main__file__table__error">
+    <i class="fa fa-warning"></i>
+    <br />This file can't be<br />visualized as a table<br />
+    <small>(it must be an array of objects)</small>
+  </div>
 </div>

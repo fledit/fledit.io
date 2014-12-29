@@ -73,6 +73,14 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
     }
   };
 
+  // True if the current file can be visualised as table
+  $scope.hasTableView = function() {
+    // The file content must be an array
+    return file.content.constructor === Array &&
+    // And must contain objects
+    _.every(file.content, function(r) { return typeof(r) === 'object'; });
+  };
+
   // Unsubscribe to the file when the scope is destroyed
   $scope.$on("$destroy", function() { socket.unsubscribe(file._id) });
   // Subscribe to

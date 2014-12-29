@@ -82,6 +82,8 @@ angular.module('fledit').controller('MainFileTableCtrl', function ($scope, file)
   $scope.file = file;
   // A table view of the file
   $scope.fileAsTable = []
+  // Stop here if the current file can't be visualised as a table
+  if( ! $scope.hasTableView() ) return;
 
   // Will contain the name of every available column
   // Collect every row's keys

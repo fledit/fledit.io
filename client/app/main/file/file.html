@@ -12,7 +12,7 @@
         JSON view
       </a>
     </li>
-    <li ui-sref-active-eq="active">
+    <li ui-sref-active-eq="active" ng-class="{ disabled: !hasTableView() }">
       <a ui-sref="main.file.table({id: file._id })">
         Table view
       </a>
