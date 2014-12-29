@@ -6,6 +6,8 @@ angular.module('fledit').controller('MainFileTableCtrl', function ($scope, file)
   var transposeToTable = function(line, col, value) {
     // Retreive its key
     var key = headers[col];
+    // Create missing rows
+    for(var r = file.content.length - 1; r < line; r++) file.content.push({});
     // Simply change the value
     file.content[line][key] = value;
   };
@@ -105,7 +107,7 @@ angular.module('fledit').controller('MainFileTableCtrl', function ($scope, file)
     columnSorting: true,
     persistentState: true,
     columns: columns,
-    minSpareRows: 0,
+    minSpareRows: 1,
     afterChange: afterChange
   };
 
