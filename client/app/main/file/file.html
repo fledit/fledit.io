@@ -9,7 +9,12 @@
   <ul class="nav nav-tabs main__file__tabs" role="tablist">
     <li ui-sref-active-eq="active">
       <a ui-sref="main.file({id: file._id })">
-        View
+        JSON view
+      </a>
+    </li>
+    <li ui-sref-active-eq="active">
+      <a ui-sref="main.file.table({id: file._id })">
+        Table view
       </a>
     </li>
     <li ui-sref-active="active">

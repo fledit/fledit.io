@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/handsontable/dist/handsontable.full.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -58,6 +59,8 @@
     <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-ui-utils/validate.js"></script>
+    <script src="bower_components/tv4/tv4.js"></script>
+    <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
     <!-- endbower -->
     <script src="socket.io-client/socket.io.js"></script>
     <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
@@ -75,6 +78,8 @@
     <script src="bower_components/lawnchair/src/adapters/dom.js"></script>
     <script src="bower_components/lawnchair/src/adapters/webkit-sqlite.js"></script>
     <script src="bower_components/lawnchair/src/adapters/ie-userdata.js"></script>
+    <script src="bower_components/handsontable/dist/handsontable.full.js"></script>
+    <script src="bower_components/nghandsontable/dist/ngHandsontable.js"></script>
     <!-- endbuild -->
 
     <!-- Workers must not be concatenated into vendor.js -->
@@ -91,6 +96,8 @@
     <script src="app/embed/embed.js"></script>
     <script src="app/main/file/file.controller.js"></script>
     <script src="app/main/file/file.js"></script>
+    <script src="app/main/file/table/table.controller.js"></script>
+    <script src="app/main/file/table/table.js"></script>
     <script src="app/main/file/use/duplicate/duplicate.controller.js"></script>
     <script src="app/main/file/use/duplicate/duplicate.js"></script>
     <script src="app/main/file/use/use.controller.js"></script>

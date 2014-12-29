@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('ValidatorCtrl', function ($scope, $state, $urlMatcherFactory, $modalInstance, Restangular, validator, file, secret) {
+angular.module('fledit').controller('MainFileValidatorCtrl', function ($scope, $state, $urlMatcherFactory, $modalInstance, Restangular, validator, file, secret) {
 
   $scope.file = file;
   $scope.secret = secret;

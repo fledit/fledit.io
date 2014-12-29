@@ -9,7 +9,7 @@ angular.module('fledit').config(function ($stateProvider) {
             // Create a modal
             $modal.open({
               templateUrl: 'app/main/file/validator/validator.html',
-                controller: 'ValidatorCtrl',
+                controller: 'MainFileValidatorCtrl',
                 resolve: {
                     // Just pass the parent file object
                     file: function() { return file; },

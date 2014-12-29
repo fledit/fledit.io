@@ -66,8 +66,8 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // save into the file object. Parsing error returns false.
   $scope.fileChanged = function() {
     try {
-      content = angular.fromJson($scope.content)
-      return ! _.isEqual(content, file.content) || !_.isEqual(file.name, master.name);
+      content = angular.fromJson($scope.content);
+      return ! _.isEqual(content, master.content) || !_.isEqual(file.name, master.name);
     } catch(e) {
       return false
     }
