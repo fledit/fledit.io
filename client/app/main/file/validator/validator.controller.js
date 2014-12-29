@@ -28,6 +28,7 @@ angular.module('fledit').controller('MainFileValidatorCtrl', function ($scope, $
   };
 
   $scope.submitValidator = function() {
+    console.log($scope.validatorUrl);
     // Get url params
     var params = urlParams($scope.validatorUrl);
     // Id of the file
