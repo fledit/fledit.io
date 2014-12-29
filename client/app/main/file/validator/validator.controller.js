@@ -14,11 +14,24 @@ angular.module('fledit').controller('MainFileValidatorCtrl', function ($scope, $
   var urlParams = function(url) {
     url = url || "";
     // Not a valid url
-    if( url.indexOf('#/') === -1 ) return null;
+    if( url.indexOf('#') === -1 ) return null;
     // Get the path from the url
-    var path = url.split('#/')[1];
+    var path = url.split('#')[1],
+    // Parameters to return
+      params = null;
+    // Test the path with every state
+    angular.forEach($state.get(), function(state) {
+      if( typeof(state.$$state) === 'function' ) {
+        var privatePortion = state.$$state();
+        var match = privatePortion.url.exec(path);
+        // Has match and state'name starts with 'main.file'
+        if (match && state.name.indexOf('main.file') === 0 ) {
+          params = match;
+        }
+      }
+    });
     // Create a url matcher and extract the params
-    return $urlMatcherFactory.compile("file/{id:[^/]*}").exec(path)
+    return params
   };
 
 
