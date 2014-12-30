@@ -82,10 +82,10 @@
     <script src="bower_components/nghandsontable/dist/ngHandsontable.js"></script>
     <!-- endbuild -->
 
-    <!-- Workers must not be concatenated into vendor.js -->
-    <script src="bower_components/ace-builds/src-min-noconflict/worker-html.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/worker-javascript.js"></script>
-    <script src="bower_components/ace-builds/src-min-noconflict/worker-json.js"></script>
+    <!-- Helps ACE editor to find languages' workers -->
+    <script>
+      ace.config.set("basePath", "bower_components/ace-builds/src-min-noconflict/");
+    </script>
 
     <!-- build:js({.tmp,client}) app/app.js -->
     <script src="app/app.module.js"></script>
