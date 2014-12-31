@@ -40,6 +40,11 @@
       z-index: @zindex-modal-background + 10;
       vertical-align:top;
 
+      &.ng-enter {
+        animation: fadeInUp 600ms;
+      }
+
+
       &__header {
         color:contrast(@brand-secondary);
         background: @brand-secondary;
