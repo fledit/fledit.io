@@ -1,31 +1,69 @@
 .main__file__table {
 
-  textarea {
-    box-sizing: content-box;
+  &--has-properties {
+    overflow: hidden;
   }
 
-  .handsontable {
 
-    table {
-      min-width: 100%;
-    }
-
-    tr:first-child th {
-        border-top:0;
-        padding-left:10px;
-        padding-right:10px;
-        font-weight: bold;
-        font-variant: small-caps;
-    }
+  &__table-view {
+    position: relative;
+    z-index:50;
   }
 
-  &__error {
+  &__properties {
+    z-index: @zindex-modal-background;
     position: absolute;
-    top:50%;
-    left:50%;
-    text-align: center;
-    font-size:2em;
-    color:fade(@brand-primary, 40);
-    .translate(-50%, -50%);
+    overflow: auto;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-color: fade(@modal-backdrop-bg, @modal-backdrop-opacity*100);
+
+    &__overlay {
+      position:absolute;
+      top:0;
+      left:0;
+      bottom:0;
+      right:0;
+    }
+
+    &__panel {
+      .modal-content();
+      position:relative;
+      width: 60%;
+      margin:40px auto;
+      z-index: @zindex-modal-background + 10;
+
+      &__header {
+        color:contrast(@brand-secondary);
+        background: @brand-secondary;
+        padding:10px 20px;
+        font-size:20px;
+        border-bottom:1px solid contrast(@brand-secondary);
+
+        &__close {
+          float:right;
+          color:contrast(@brand-secondary);
+        }
+      }
+
+      &__wrapper {
+
+        overflow: auto;
+
+        &__table-view {
+          display: block;
+        }
+      }
+    }
+
+    .table-view__error {
+      font-size:1.4em;
+      position:static;
+      padding:20px;
+      .translate(0,0);
+    }
   }
+
 }

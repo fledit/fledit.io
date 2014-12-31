@@ -1,13 +1,18 @@
-<div class="main__file__table">
-  <hot-table
-      class="main__file__table__view"
-      ng-if="hasTableView()"
-      settings="tableSettings"
-      datarows="fileAsTable">
-  </hot-table>
-  <div ng-if="!hasTableView() || !tableSettings.columns.length" class="main__file__table__error">
-    <i class="fa fa-warning"></i>
-    <br />This file can't be<br />visualized as a table<br />
-    <small>(it must be an array of objects)</small>
+<div class="main__file__table" ng-class="{ 'main__file__table--has-properties': properties }">
+  <table-view class="main__file__table__table-view" data="rows"></table-view>
+
+  <div ng-if="properties" class="main__file__table__properties">
+    <div class="main__file__table__properties__overlay" ng-click="$parent.properties = null"></div>
+    <div class="main__file__table__properties__panel">
+      <div class="main__file__table__properties__panel__header">
+        Edit cell properties
+        <a class="main__file__table__properties__panel__header__close" ng-click="$parent.properties = null">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
+      <div class="main__file__table__properties__panel__wrapper">
+        <table-view data="properties" class="main__file__table__properties__panel__wrapper__table-view"></table-view>
+      </div>
+    </div>
   </div>
 </div>
