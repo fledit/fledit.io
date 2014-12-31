@@ -102,8 +102,9 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     td.className = 'handsontable__cell--object';
     td.innerHTML = '<a>Multiple values</a>';
     $("a", td).on("click", function() {
+      instance.deselectCell();
       $scope.$apply(function() {
-        $rootScope.$broadcast("table-view:edit-properties", value);
+        $rootScope.$broadcast("table-view:edit-properties", {properties: value, parent: $scope.data });
       });
     });
   };

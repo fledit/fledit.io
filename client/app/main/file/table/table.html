@@ -1,9 +1,9 @@
 <div class="main__file__table" ng-class="{ 'main__file__table--has-nested': nestedObjects.length }">
   <table-view class="main__file__table__table-view" read-only="!secret" data="rows"></table-view>
 
-  <div ng-repeat="nested in nestedObjects" class="main__file__table__nested">
-    <div class="main__file__table__nested__overlay" ng-click="removeNested(nested)"></div>
-    <div class="main__file__table__nested__panel">
+  <div class="main__file__table__nested" ng-if="nestedObjects.length">
+    <div class="main__file__table__nested__overlay" ng-click="removeNested()"></div>
+    <div class="main__file__table__nested__panel" ng-repeat="nested in nestedObjects">
       <div class="main__file__table__nested__panel__header">
         Cell properties
         <a class="main__file__table__nested__panel__header__close" ng-click="removeNested(nested)">
@@ -11,7 +11,7 @@
         </a>
       </div>
       <div class="main__file__table__nested__panel__wrapper">
-        <table-view data="nested" read-only="!secret" class="main__file__table__nested__panel__wrapper__table-view"></table-view>
+        <table-view data="nested.properties" parent="nested.parent" read-only="!secret" class="main__file__table__nested__panel__wrapper__table-view"></table-view>
       </div>
     </div>
   </div>

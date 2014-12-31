@@ -8,7 +8,8 @@ angular.module('fledit')
       controller: 'TableViewCtrl',
       scope: {
         data: "=",
-        readOnly: "="
+        readOnly: "=",
+        parent: "="
       }
     };
   });
