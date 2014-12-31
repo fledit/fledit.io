@@ -1,17 +1,17 @@
-<div class="main__file__table" ng-class="{ 'main__file__table--has-properties': properties }">
-  <table-view class="main__file__table__table-view" data="rows"></table-view>
+<div class="main__file__table" ng-class="{ 'main__file__table--has-nested': nestedObjects.length }">
+  <table-view class="main__file__table__table-view" read-only="!secret" data="rows"></table-view>
 
-  <div ng-if="properties" class="main__file__table__properties">
-    <div class="main__file__table__properties__overlay" ng-click="$parent.properties = null"></div>
-    <div class="main__file__table__properties__panel">
-      <div class="main__file__table__properties__panel__header">
-        Edit cell properties
-        <a class="main__file__table__properties__panel__header__close" ng-click="$parent.properties = null">
+  <div ng-repeat="nested in nestedObjects" class="main__file__table__nested">
+    <div class="main__file__table__nested__overlay" ng-click="removeNested(nested)"></div>
+    <div class="main__file__table__nested__panel">
+      <div class="main__file__table__nested__panel__header">
+        Cell properties
+        <a class="main__file__table__nested__panel__header__close" ng-click="removeNested(nested)">
           <i class="fa fa-times"></i>
         </a>
       </div>
-      <div class="main__file__table__properties__panel__wrapper">
-        <table-view data="properties" class="main__file__table__properties__panel__wrapper__table-view"></table-view>
+      <div class="main__file__table__nested__panel__wrapper">
+        <table-view data="nested" read-only="!secret" class="main__file__table__nested__panel__wrapper__table-view"></table-view>
       </div>
     </div>
   </div>

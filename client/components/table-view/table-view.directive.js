@@ -7,7 +7,8 @@ angular.module('fledit')
       restrict: 'EA',
       controller: 'TableViewCtrl',
       scope: {
-        data: "="
+        data: "=",
+        readOnly: "="
       }
     };
   });

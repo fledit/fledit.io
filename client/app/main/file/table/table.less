@@ -1,6 +1,6 @@
 .main__file__table {
 
-  &--has-properties {
+  &--has-nested {
     overflow: hidden;
     &__table-view {
       position: relative;
@@ -10,7 +10,7 @@
 
 
 
-  &__properties {
+  &__nested {
     z-index: @zindex-modal-background;
     position: absolute;
     overflow: auto;
@@ -51,6 +51,7 @@
       &__wrapper {
 
         overflow: auto;
+        overflow-y: hidden;
 
         &__table-view {
           display: block;

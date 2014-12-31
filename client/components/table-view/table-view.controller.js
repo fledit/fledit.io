@@ -2,14 +2,33 @@
 
 angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScope) {
 
+
+  var isLiteralArray = function() {
+    return $scope.data.constructor === Array && headers.length === 0;
+  };
+
+  var isObject = function() {
+    return $scope.data.constructor === Object;
+  }
+
   // Transpose values from the table to the file content
   var transposeToTable = function(line, col, value) {
-    // Retreive its key
-    var key = headers[col];
-    // Create missing rows
-    for(var r = $scope.data.length - 1; r < line; r++) $scope.data.push({});
-    // Simply change the value
-    $scope.data[line][key] = value;
+    if( isLiteralArray() )  {
+      // Create missing rows
+      for(var r = $scope.data.length - 1; r < line;   r++) $scope.data.push(null);
+      // Simply change the value
+      $scope.data[line] = isNaN(value) ? value : 1*value;
+    } else if( isObject() )  {
+      var key = _.keys($scope.data)[line];
+      $scope.data[key] = value;
+    } else {
+      // Retreive its key
+      var key = headers[col];
+      // Create missing rows
+      for(var r = $scope.data.length - 1; r < line; r++) $scope.data.push({});
+      // Simply change the value
+      $scope.data[line][key] = value;
+    }
   };
 
   var typeToCellType = function(type) {
@@ -49,7 +68,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     typesPop[NUMBER] = typesPop[STRING] = typesPop[BOOLEAN] = typesPop[OBJECT] = 0;
 
     angular.forEach(values, function(row) {
-      if(row[key] === null) return;
+      if(row[key] === null || row[key] === undefined) return;
       switch( typeof(row[key]) ) {
         case typeof(1):
           ++typesPop[NUMBER]
@@ -79,79 +98,121 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
 
   var objectRenderer = function(instance, td, row, col, prop, value, cellProperties) {
     Handsontable.renderers.TextRenderer.apply(this, arguments);
+    cellProperties.readOnly = true;
     td.className = 'handsontable__cell--object';
-    td.innerHTML = '<a>Edit properties</a>';
+    td.innerHTML = '<a>Multiple values</a>';
     $("a", td).on("click", function() {
       $scope.$apply(function() {
         $rootScope.$broadcast("table-view:edit-properties", value);
       });
-    })
+    });
   };
 
+  var dynamicRenderer = function(instance, td, row, col, prop, value, cellProperties) {
+    if(  value !== null && [Array, Object].indexOf(value.constructor) > -1 ) {
+      objectRenderer.apply(this, arguments);
+    } else if( !isNaN(value) ) {
+      Handsontable.renderers.NumericRenderer.apply(this, arguments);
+    } else if( typeof(value) === 'boolean' ) {
+      Handsontable.renderers.BooleanRenderer.apply(this, arguments);
+    } else {
+      Handsontable.renderers.TextRenderer.apply(this, arguments);
+    }
+  }
+
+
+  var getHeaders = function() {
+    var headers = [];
+    // No headers for object
+    if( isObject() ) return headers;
+    // Will contain the name of every available column
+    // Collect every row's keys
+    angular.forEach($scope.data, function(row) {
+      headers = headers.concat( _.keys(row) );
+    });
+    // Removes duplicates from the column names
+    return _.unique(headers);
+  };
+
+  var getColumns = function() {
+    // literal array has no typed column
+    if( isLiteralArray() || isObject() ) return null;
+    // Array of columns
+    return _.map(headers, function(key) {
+      // Guess type for every header
+      var type = typeToCellType( guessColType(key) ),
+      // Cell's option
+      options = {
+        type: type,
+        title: key
+      };
+      // Object gets a very special treatment
+      if( type === 'object') {
+        angular.extend(options, {
+          type: 'text',
+          readOnly: true,
+          renderer: objectRenderer
+        });
+      }
+      return options;
+    });
+  };
 
   // True if the current file can be visualised as table
   $scope.hasTableView = function() {
-    // The file content must be an array
-    return $scope.data.constructor === Array &&
-    // And must contain objects
-    _.every($scope.data, function(r) { return typeof(r) === 'object'; });
+    // Enumerable type
+    return $scope.data && [Array, Object].indexOf($scope.data.constructor) > -1;
   };
 
-  // Cell types
-  var NUMBER = 0, BOOLEAN = 1, STRING = 2, OBJECT = 3;
-  var headers = [], columns = [];
 
-  // A table view of the data
-  $scope.dataAsTable = []
+  // Handsometable settings
+  $scope.tableSettings = {};
   // Stop here if the current data can't be visualised as a table
   if( ! $scope.hasTableView() ) return;
+  // All headers
+  var headers = getHeaders();
+  // Cell types
+  var NUMBER = 0, BOOLEAN = 1, STRING = 2, OBJECT = 3;
 
-  // Will contain the name of every available column
-  // Collect every row's keys
-  angular.forEach($scope.data, function(row) {
-    headers = headers.concat( _.keys(row) );
-  });
-  // Removes duplicates from the column names
-  headers = _.unique(headers);
-  columns = _.map(headers, function(key) {
-    // Guess type for every header
-    var type = typeToCellType( guessColType(key) ),
-    // Cell's option
-    options = {
-      type: type,
-      title: key
+  // Has no headers, it might be an array of literal values
+  if( isLiteralArray() ) {
+    $scope.dataAsTable = _.map($scope.data, function(row) { return [row] });
+    $scope.tableSettings.cells = function (row, col, prop) {
+      this.renderer = dynamicRenderer;
     };
-    // Object gets a very special treatment
-    if( type === 'object') {
-      angular.extend(options, {
-        type: 'text',
-        readOnly: true,
-        renderer: objectRenderer
+  } else if( isObject() ) {
+    $scope.dataAsTable = _.map( _.keys($scope.data), function(key) { return [$scope.data[key]] });
+    // Object table uses custom settings
+    angular.extend($scope.tableSettings, {
+      rowHeaders: _.keys($scope.data),
+      minSpareRows: 0,
+      maxRows: _.keys($scope.data).length,
+      // Object uses a dynamic renderer
+      cells: function (row, col, prop) {
+        this.renderer = dynamicRenderer;
+      }
+    });
+  } else {
+    // Transform the date to fits with the headers
+    $scope.dataAsTable = _.map($scope.data, function(row) {
+      var newRow = [];
+      angular.forEach(headers, function(key) {
+        newRow.push(row[key]);
       });
-    }
-    return options;
-  });
-  // Removes column with objects
-  columns = _.filter(columns, function(f) { return f.type !== 'object' });
-  headers = _.pluck(columns, 'title');
+      return newRow;
+    });
+  }
 
-  $scope.tableSettings = {
+
+  $scope.tableSettings = angular.extend({
     colHeaders: true,
     rowHeaders: true,
     columnSorting: true,
     persistentState: true,
-    columns: columns,
+    columns: getColumns(),
     minSpareRows: 1,
+    readOnly: !!$scope.readOnly,
     afterChange: afterChange
-  };
-
-  // Transform the date to fits with the headers
-  angular.forEach($scope.data, function(row) {
-    var newRow = [];
-    angular.forEach(headers, function(key) {
-      newRow.push(row[key]);
-    });
-    $scope.dataAsTable.push(newRow);
-  });
+  }, $scope.tableSettings);
 
 });

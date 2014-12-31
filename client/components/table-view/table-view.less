@@ -18,12 +18,20 @@
         font-variant: small-caps;
     }
 
-    .handsontable__cell--object a {
-      display: block;
-      text-align:center;
-      text-decoration: underline;
-      cursor: pointer;
-      font-size: 0.9em;
+    .handsontable__cell--object {
+      background:#FFFDC1;
+
+       a {
+        display: block;
+        text-align:center;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: 0.9em;
+      }
+    }
+
+    .htNumeric {
+      color:#27b200;
     }
 
     .ht_clone_corner,
@@ -31,6 +39,7 @@
     .ht_clone_left {
       display: none;
     }
+
   }
 
   &__error {

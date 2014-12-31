@@ -5,9 +5,8 @@
       settings="tableSettings"
       datarows="dataAsTable">
   </hot-table>
-  <div ng-if="!hasTableView() || !tableSettings.columns.length" class="table-view__error">
+  <div ng-if="!hasTableView()" class="table-view__error">
     <i class="fa fa-warning"></i>
-    <br />This file can't be<br />visualized as a table<br />
-    <small>(it must be an array of objects)</small>
+    <br />Those data can't be<br />visualized as a table<br />
   </div>
 </div>
