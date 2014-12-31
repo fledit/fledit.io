@@ -2,13 +2,13 @@
 
   &--has-properties {
     overflow: hidden;
+    &__table-view {
+      position: relative;
+      z-index:50;
+    }
   }
 
 
-  &__table-view {
-    position: relative;
-    z-index:50;
-  }
 
   &__properties {
     z-index: @zindex-modal-background;
@@ -54,16 +54,17 @@
 
         &__table-view {
           display: block;
+
+          .table-view__error {
+            font-size:1.4em;
+            position:static;
+            padding:20px;
+            .translate(0,0);
+          }
         }
       }
     }
 
-    .table-view__error {
-      font-size:1.4em;
-      position:static;
-      padding:20px;
-      .translate(0,0);
-    }
   }
 
 }
