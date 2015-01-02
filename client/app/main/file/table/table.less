@@ -21,6 +21,7 @@
     white-space: nowrap;
     text-align:right;
 
+
     &__overlay {
       position:absolute;
       top:0;
@@ -36,12 +37,16 @@
       display: inline-block;
       position:relative;
       width: 40%;
-      margin:40px;
+      margin:2%;
       z-index: @zindex-modal-background + 10;
       vertical-align:top;
 
+      &:first-child {
+        margin-left:50%;
+      }
+
       &.ng-enter {
-        animation: fadeInUp 600ms;
+        .animation(fadeInUp 600ms);
       }
 
 

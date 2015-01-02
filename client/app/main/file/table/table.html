@@ -2,7 +2,6 @@
   <table-view class="main__file__table__table-view" read-only="!secret" data="rows"></table-view>
 
   <div class="main__file__table__nested" ng-if="nestedObjects.length" scroll-to-tail="nestedObjects">
-    <div class="main__file__table__nested__overlay" ng-click="removeNested()"></div>
     <div class="main__file__table__nested__panel" ng-repeat="nested in nestedObjects">
       <div class="main__file__table__nested__panel__header">
         Cell properties
@@ -14,5 +13,6 @@
         <table-view data="nested.properties" parent="nested.parent" read-only="!secret" class="main__file__table__nested__panel__wrapper__table-view"></table-view>
       </div>
     </div>
+    <div class="main__file__table__nested__overlay" ng-click="removeNested()"></div>
   </div>
 </div>
