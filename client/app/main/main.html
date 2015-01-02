@@ -4,7 +4,7 @@
       <div class="row main__editor">
         <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs">
           <a ui-sref="main" class="main__editor__sidebar__brand">
-            <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp; 
+            <i class="fa fa-paper-plane-o fa-fw"></i>&nbsp;
             Fledit <sup>beta</sup>
           </a>
           <p class="lead">
@@ -35,34 +35,34 @@
               </a>
             </li>
             <li>
-              <a target="_blank" href="">
+              <a target="_blank" href="https://github.com/fledit">
                 Github
               </a>
             </li>
           </ul>
         </div>
-        <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>        
+        <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>
           <div class="main__editor__drop__alerts">
             <div class="alert alert-danger text-center main__editor__drop__alerts__item" ng-show="error">
               {{error}}
             </div>
           </div>
           <form  name="editorForm" ng-submit="addFile()">
-            <div ui-ace="{mode: 'json', theme: 'clouds'}"  
+            <div ui-ace="{mode: 'json', theme: 'clouds'}"
                  ng-model="$parent.newFile"
-                 required 
+                 required
                  ui-validate="'noParseError($value)'"
-                 class="main__editor__drop__textarea form-control"></div>        
+                 class="main__editor__drop__textarea form-control"></div>
             <div class="main__editor__drop__footer">
               <button ng-disabled="!editorForm.$valid" class="btn btn-primary btn-lg main__editor__drop__footer__save">
-                Publish the new file 
+                Publish the new file
               </button>
             </div>
             <div class="main__editor__drop__placeholder" ng-show="!newFile">
-              Copy &amp; past a JSON file here or start typing! 
+              Copy &amp; past a JSON file here or start typing!
             </div>
           </form>
-        </div>    
+        </div>
       </div>
     </div>
   </div>
