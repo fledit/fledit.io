@@ -24,6 +24,7 @@
     background-color: fade(@modal-backdrop-bg, @modal-backdrop-opacity*100);
     white-space: nowrap;
     text-align:right;
+    pointer-events: none;
 
 
     &__overlay {
@@ -32,11 +33,14 @@
       left:0;
       bottom:0;
       right:0;
+      pointer-events: auto;
     }
 
     &__item {
 
+      position: relative;
       width: 500px;
+      min-height: 100%;
       margin:0;
       overflow: hidden;
       display: inline-block;
@@ -60,6 +64,7 @@
 
       &__panel {
         .modal-content();
+        pointer-events: auto;
         text-align:left;
         white-space: normal;
         position:relative;
@@ -83,6 +88,10 @@
           right:0;
           background-color: fade(@modal-backdrop-bg, @modal-backdrop-opacity*100);
           cursor: pointer;
+          .transition(0.6s);
+          &:hover {
+            background-color: fade(@modal-backdrop-bg, @modal-backdrop-opacity*50);
+          }
         }
 
 
