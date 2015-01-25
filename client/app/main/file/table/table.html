@@ -4,9 +4,9 @@
   <div class="main__file__table__nested" ng-if="nestedObjects.length" scroll-to-tail="nestedObjects">
     <div class="main__file__table__nested__panel" ng-repeat="nested in nestedObjects">
       <div class="main__file__table__nested__panel__header">
-        Cell properties
-        <a class="main__file__table__nested__panel__header__close" ng-click="removeNested(nested)">
-          <i class="fa fa-times"></i>
+        <a class="main__file__table__nested__panel__header__close btn btn-xs" ng-click="removeNested(nested)">
+          <i class="fa fa-caret-left"></i>
+          &nbsp; Back
         </a>
       </div>
       <div class="main__file__table__nested__panel__wrapper">

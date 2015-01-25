@@ -53,12 +53,13 @@
       &__header {
         color:contrast(@brand-secondary);
         background: @brand-secondary;
-        padding:10px 20px;
-        font-size:20px;
+        padding:10px;
         border-bottom:1px solid contrast(@brand-secondary);
+        text-align: left;
 
-        &__close {
-          float:right;
+        &__close,
+        &__close:hover {
+          border:1px solid white;
           color:contrast(@brand-secondary);
         }
       }
