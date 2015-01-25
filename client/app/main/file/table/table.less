@@ -2,9 +2,13 @@
 
   &--has-nested {
     overflow: hidden;
-    &__table-view {
+
+    .main__file__table__table-view {
       position: relative;
       z-index:50;
+      filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -webkit-filter: grayscale(100%);
     }
   }
 
@@ -30,56 +34,91 @@
       right:0;
     }
 
-    &__panel {
-      .modal-content();
-      text-align:left;
-      white-space: normal;
+    &__item {
+
+      width: 500px;
+      margin:0;
+      overflow: hidden;
       display: inline-block;
-      position:relative;
-      width: 40%;
-      margin:2%;
-      z-index: @zindex-modal-background + 10;
       vertical-align:top;
+
+      .transition(0.8s width);
+
+      &.ng-leave.ng-leave-active,
+      &.ng-enter {
+        width:0%;
+      }
+
+      &.ng-leave,
+      &.ng-enter.ng-enter-active {
+        width:500px;
+      }
 
       &:first-child {
         margin-left:50%;
       }
 
-      &.ng-enter {
-        .animation(fadeInUp 600ms);
-      }
+      &__panel {
+        .modal-content();
+        text-align:left;
+        white-space: normal;
+        position:relative;
+        width: 500px - 20px;
+        margin: 10px;
+        z-index: @zindex-modal-background + 10;
+        .transition(0.8s margin);
 
-
-      &__header {
-        color:contrast(@brand-secondary);
-        background: @brand-secondary;
-        padding:10px;
-        border-bottom:1px solid contrast(@brand-secondary);
-        text-align: left;
-
-        &__close,
-        &__close:hover {
-          border:1px solid white;
-          color:contrast(@brand-secondary);
+        &--disabled {
+          filter: grayscale(100%);
+          -moz-filter: grayscale(100%);
+          -webkit-filter: grayscale(100%);
         }
-      }
 
-      &__wrapper {
+        &--disabled &__overlay {
+          z-index: @zindex-modal-background + 20;
+          position:absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          background-color: fade(@modal-backdrop-bg, @modal-backdrop-opacity*100);
+          cursor: pointer;
+        }
 
-        overflow: auto;
-        overflow-y: hidden;
 
-        &__table-view {
-          display: block;
+        &__header {
+          color:contrast(@brand-secondary);
+          background: @brand-secondary;
+          padding:10px;
+          border-bottom:1px solid contrast(@brand-secondary);
+          text-align: left;
 
-          .table-view__error {
-            font-size:1.4em;
-            position:static;
-            padding:20px;
-            .translate(0,0);
+          &__close,
+          &__close:hover {
+            border:1px solid white;
+            color:contrast(@brand-secondary);
+          }
+
+        }
+
+        &__wrapper {
+
+          overflow: auto;
+          overflow-y: hidden;
+
+          &__table-view {
+            display: block;
+
+            .table-view__error {
+              font-size:1.4em;
+              position:static;
+              padding:20px;
+              .translate(0,0);
+            }
           }
         }
       }
+
     }
 
   }
