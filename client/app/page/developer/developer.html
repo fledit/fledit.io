@@ -1,19 +1,19 @@
-<h1 class="page__content__title">Developer</h1>	
+<h1 class="page__content__title">Developer</h1>
 <div class="page__content__body developer">
 	<p class="lead">
-		Fledit is build at the top of a <strong>REST API</strong> and a 
-		<strong>WebSocket</strong> server. This guide lets you discover 
+		Fledit is build at the top of a <strong>REST API</strong> and a
+		<strong>WebSocket</strong> server. This guide lets you discover
 		how to get or post file directly from Fledit.
 	</p>
 
 	<h2>REST API</h2>
 	<p>
 		The API is available on <a href="http://www.fledit.io/api">fledit.io/api</a>.
-		As you may guess, every responses and requests use a 
-		<code>Content-Type</code> set to <code>application/json</code>. 
-		Each writing operation (<em>create</em>, <em>update</em> and <em>delete</em>) 
-		comes with rate limitations accordingly. These limitations are applied thtough 
-		window of 1 hour chunks for each operation. Finally, Fledit allows 
+		As you may guess, every responses and requests use a
+		<code>Content-Type</code> set to <code>application/json</code>.
+		Each writing operation (<em>create</em>, <em>update</em> and <em>delete</em>)
+		comes with rate limitations accordingly. These limitations are applied thtough
+		window of 1 hour chunks for each operation. Finally, Fledit allows
 		<a href="http://www.w3.org/TR/cors/" target="_blank">CORS</a> so you
 		can send or read data direclty from your Javascript application.
 	</p>
@@ -27,14 +27,14 @@
 		/api/files
 	</h3>
 	<p>
-		This operation lets you create an abitrary file. It's particulary usefull 
+		This operation lets you create an abitrary file. It's particulary usefull
 		if you want to use Fledit as database into your application. Since every
-		creation returns an admin <strong>token</strong> that can be use to raise 
-		user rights, it is easy to build application with persistent data. 		
+		creation returns an admin <strong>token</strong> that can be use to raise
+		user rights, it is easy to build application with persistent data.
 	</p>
 	<p>
 		To create a new file, you'll have to send two parameters:
-		<code>content</code> that contains the very content of your file, 
+		<code>content</code> that contains the very content of your file,
 		and optionaly <code>name</code> that holds a name for your file.
 	</p>
 
@@ -43,7 +43,7 @@
 		/api/files
 	</h3>
 	<p>
-		This operation lets you navigate through every public files. 
+		This operation lets you navigate through every public files.
 		<strong>It is only available during the beta and should be replaced by
 		more accurate endpoints soon.</strong>
 	</p>
@@ -53,22 +53,32 @@
 		/api/files/:id
 	</h3>
 	<p>
-		This operation gets you to the last version of a given file. 
-		No particular limitation is applied to this endpoint except with the optional parameter 
-		<code>secret</code>. This parameter lets you check if a given file matchs with 
+		This operation gets you to the last version of a given file.
+		No particular limitation is applied to this endpoint except with the optional parameter
+		<code>secret</code>. This parameter lets you check if a given file matchs with
 		the secret token you send.
 	</p>
 
-	<h3 class="developer__endpoint developer__endpoint--put">
-		<i class="fa fa-lock pull-right text-muted" tooltip="This operation need authentication"></i>
-		<span class="label label-success">PUT</span>&nbsp;
-		/api/files/:id
-	</h3>
-	<p>
-		This operation lets you update a given file. To be allowed to edit a file
-		you must add a <code>secret</code> parameter in the URL you call. The
-		body of the request must contain the whole file to update meaning that
-		both <code>content</code> and <code>name</code> must be send. 
-		A <em>PATCH</em> method will be soon available.
-	</p>
+  <h3 class="developer__endpoint developer__endpoint--put">
+    <i class="fa fa-lock pull-right text-muted" tooltip="This operation need authentication"></i>
+    <span class="label label-success">PUT</span>&nbsp;
+    /api/files/:id
+  </h3>
+  <p>
+    This operation lets you update a given file. To be allowed to edit a file
+    you must add a <code>secret</code> parameter in body or your request. The
+    body of the request must contain the whole file to update meaning that
+    both <code>content</code> and <code>name</code> must be send.
+    A <em>PATCH</em> method will be soon available.
+  </p>
+
+  <h3 class="developer__endpoint developer__endpoint--delete">
+    <i class="fa fa-lock pull-right text-muted" tooltip="This operation need authentication"></i>
+    <span class="label label-danger">DELETE</span>&nbsp;
+    /api/files/:id
+  </h3>
+  <p>
+    This operation lets you delete a given file. To be allowed to delete a file
+    you must add a <code>secret</code> parameter in the URL you call.
+  </p>
 </div>
