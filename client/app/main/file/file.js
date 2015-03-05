@@ -9,12 +9,23 @@ angular.module('fledit').config(function ($stateProvider) {
     templateUrl: 'app/main/file/file.html',
     controller: 'MainFileCtrl',
     resolve: {
-      file: function($stateParams, Restangular) {
-        var params = {
-          // Take secret from parameter
-          secret: $stateParams.secret
+      file: function($state, $stateParams, $q, Restangular) {
+        // Handle no found file
+        var handleError = function() {
+          // Reject the promise
+          deferred.reject();
+          // Redirect to 404
+          $state.go("404");
         };
-        return Restangular.one("files", $stateParams.id).get(params);
+        var deferred = $q.defer();
+        // Take id and secret from state parameters
+        Restangular.one("files", $stateParams.id)
+          // Get the file
+          .get({ secret: $stateParams.secret })
+          // Catch result
+          .then(deferred.resolve, handleError);
+        // Returns a promise
+        return deferred.promise
       }
     }
   });

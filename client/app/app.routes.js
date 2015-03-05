@@ -16,7 +16,7 @@ angular.module('fledit')
     decoratorFn.$inject = ['$state', 'parent'];
     $stateProvider.decorator('views', decoratorFn);
 
-  }).run(function($rootScope, Progress) {
+  }).run(function($rootScope, $state, Progress) {
     // Start progress indicator
     $rootScope.$on("$stateChangeStart", Progress.start);
     // Stop progress indicator
