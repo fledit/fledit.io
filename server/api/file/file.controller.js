@@ -98,3 +98,24 @@ exports.update = function(req, res) {
     });
   });
 };
+
+// Delete an existing file in the DB.
+exports.delete = function(req, res) {
+  // Check tries remaing
+  if( secretLimiter.getTokensRemaining() < 1 ) {
+    return handleError(res, { error: "Reached rate limit" });
+  }
+    // Delete the file
+  File.remove({_id: req.params.id, secret: req.query.secret}, function (err, removed) {
+    if (err) { return handleError(res, err); }
+    console.log(removed);
+    if(removed === 0) {
+      // Notice the limiter
+      secretLimiter.removeTokens(1, function() {
+        return res.send(404, 'No file deleted');
+      });
+    } else {
+      return res.json(200);
+    }
+  });
+};
