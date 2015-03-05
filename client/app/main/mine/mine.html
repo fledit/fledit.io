@@ -1,13 +1,13 @@
 <div class="main__mine">
     <h2>Your files</h2>
     <p class="lead main__mine__lead">
-        Fledit uses a painless saving system based on your past actions. 
-        No need to sign up: once you created a file or used its secret, it will 
-        be available from this page on this computer. 
+        Fledit uses a painless saving system based on your past actions.
+        No need to sign up: once you created a file or used its secret, it will
+        be available from this page on this computer.
     </p>
 
     <ul class="list-unstyled main__mine__files">
-        <li ng-repeat="file in myfiles | orderBy:'-updated_at'" class="main__mine__files__item">            
+        <li ng-repeat="file in myfiles | orderBy:'-updated_at'" class="main__mine__files__item">
             <h4 class="main__mine__files__item__title">
                 <a ui-sref="main.file({ id: file._id })">
                     {{file.name || "Untitled"}}
@@ -17,6 +17,8 @@
                 <a ui-sref="main.file.use({id: file._id})">Use</a>
                 —
                 <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
+                —
+                <a ng-click="remove(file)" class="text-danger">Delete</a>
                 —
                 Last update <time>{{file.updated_at|date:'short'}}</time>
             </p>

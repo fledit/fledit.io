@@ -14,8 +14,6 @@ angular.module('fledit').config(function ($stateProvider) {
         var handleError = function() {
           // Reject the promise
           deferred.reject();
-          // Redirect to 404
-          $state.go("404");
         };
         var deferred = $q.defer();
         // Take id and secret from state parameters

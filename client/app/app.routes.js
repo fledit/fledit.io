@@ -22,5 +22,8 @@ angular.module('fledit')
     // Stop progress indicator
     $rootScope.$on("$stateChangeSuccess", Progress.complete);
     // Stop progress indicator
-    $rootScope.$on("$stateChangeError", Progress.complete);
+    $rootScope.$on("$stateChangeError", function() {
+      // By default, go to the 404 state
+      $state.go("404");
+    });
   });

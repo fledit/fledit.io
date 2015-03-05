@@ -36,8 +36,17 @@ angular.module('fledit').factory('filemanager', function($q, $rootScope) {
         // Broadcast changes
         $rootScope.$broadcast("filemanager:updated", files);
       });
-      // We return the service for chaining
-      return this;
+    },
+    remove: function(id) {
+      // Get all files
+      return this.all().then(function(files) {
+        // Remove the current id from the file
+        delete files[id]
+        // And add the new files list to local storage
+        store.save({key: "files", files: files });
+        // Broadcast changes
+        $rootScope.$broadcast("filemanager:updated", files);
+      });
     },
     secret: function(id) {
       var deferred = $q.defer();
