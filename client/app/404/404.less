@@ -1,7 +1,23 @@
 .not-found {
-	@corner-bg: darken(@body-bg, 3%);
-	color:contrast(@body-bg);
+  @corner-bg: darken(@body-bg, 3%);
+  color:contrast(@body-bg);
   text-align:center;
+
+
+  &__back,
+  &__back:hover,
+  &__back:active {
+    position: fixed;
+    top:10px;
+    left:10px;
+    color: inherit;
+    z-index: 20;
+    text-shadow: 0 0 10px @body-bg;
+
+      @media (max-width: @screen-sm-min) {
+        position: absolute;
+      }
+  }
 
   &__title {
     margin-top:100px;
