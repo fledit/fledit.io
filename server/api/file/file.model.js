@@ -3,6 +3,7 @@
 var mongoose = require('mongoose'),
         hash = require('mongoose-hash'),
          tv4 = require('tv4'),
+           _ = require('lodash'),
       Schema = mongoose.Schema;
 
 var FileSchema = new Schema({
@@ -36,6 +37,9 @@ var FileSchema = new Schema({
   valid: {
     type: Boolean,
     default: null
+  },
+  error: {
+    type: Object
   }
 }, {
   versionKey: "revision"
@@ -59,16 +63,20 @@ FileSchema.pre('save', function(next){
     var file = this;
     File.findById(this.validator, function(err, validator) {
       if(err || validator === null) {
-        file.valid = null;
+        file.error = file.valid = null;
         next();
       } else {
         file.valid = tv4.validate(file.content, validator.content);
+        // Pick specific error's attributes
+        file.error = _.pick(tv4.error, [
+          'name', 'schemaPath', 'dataPath', 'code', 'message', 'params'
+        ]);
         next();
       }
     });
   // Do not wait to send the callback
   } else {
-    this.valid = null;
+    this.error = this.valid = null;
     next();
   }
 });
