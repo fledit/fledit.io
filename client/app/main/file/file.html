@@ -3,6 +3,8 @@
     <span ng-show="secret">
       <a ui-sref="main.file({id: file._id, secret: secret})">Admin link</a>
       —
+      <a ng-click="remove(file, secret)" class="text-danger">Delete</a>
+      —
     </span>
     Last update <time>{{file.updated_at|date:'short'}}</time>
   </div>

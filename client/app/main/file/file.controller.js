@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, $stateParams, $location, filemanager) {
+angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, Restangular, $stateParams, $location, filemanager) {
   var editor = $scope.updatedFile = null;
   // Copy of the database file to watch changes
   var master = file.clone();
@@ -34,6 +34,18 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   $scope.publicFilePath = function() {
     return $state.href("main.file", {id: file._id}, {absolute: true});
   };
+  // Remove the given file
+  $scope.remove = function(file, secret) {
+    // Ask for confirmation
+    if( confirm("This file will be lost for you and every people who are using it. Are you sure?") ) {
+      // Take id and secret from state parameters
+      Restangular.one("files", file._id).remove({ secret: file.secret || secret});
+      // Remove it from "my files"
+      filemanager.remove(file._id);
+      // Redirect to the main state
+      $state.go("main");
+    }
+  }
   // This will parse the text content, add
   // the secret key and save the file
   $scope.saveFile = function() {
