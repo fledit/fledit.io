@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('fledit')
-  .config(function ($urlRouterProvider, $stateProvider) {
+  .config(function ($urlRouterProvider, $locationProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/');
+    $locationProvider.hashPrefix('!')
     // @src http://stackoverflow.com/questions/26824628/ui-router-state-current-wrapper-for-arbitary-state/26848546#26848546
     // This fn is called by StateBuilder each time a state is registered
     var decoratorFn = function($state, parent) {

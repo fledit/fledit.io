@@ -14,9 +14,9 @@ angular.module('fledit').controller('MainFileValidatorCtrl', function ($scope, $
   var urlParams = function(url) {
     url = url || "";
     // Not a valid url
-    if( url.indexOf('#') === -1 ) return null;
+    if( url.indexOf('#!') === -1 ) return null;
     // Get the path from the url
-    var path = url.split('#')[1],
+    var path = url.split('#!')[1],
     // Parameters to return
       params = null;
     // Test the path with every state

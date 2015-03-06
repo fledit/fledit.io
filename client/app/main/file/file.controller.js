@@ -23,7 +23,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // Path to the api endpoint of the current file
   $scope.rawFilePath = function() {
     var secureFile = file.clone()
-    var baseUrl = $location.absUrl().split( "/#" + $location.path() )[0]
+    var baseUrl = $location.absUrl().split( "/#!" + $location.path() )[0]
     return baseUrl + secureFile.getRequestedUrl();
   };
   // Admin link
