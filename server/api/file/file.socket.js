@@ -15,15 +15,15 @@ exports.subscribe = function(socketio) {
 
   file.schema.post('remove', function (doc) {
     onRemove(doc);
-  });  
+  });
 
   function onSave(doc, cb) {
-    delete doc.secret;
+    doc.secret = null;
     socketio.to("file:" + doc._id).emit('save', doc);
   }
 
   function onRemove(doc, cb) {
-    delete doc.secret;
+    doc.secret = null;
     socketio.to("file:" + doc._id).emit('remove', doc);
   }
 }
