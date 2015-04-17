@@ -4,7 +4,8 @@
 
 'use strict';
 
-var file = require('./file.model');
+var file = require('./file.model'),
+       _ = require('lodash');
 
 // Subscribe to change on the file model
 exports.subscribe = function(socketio) {
@@ -18,11 +19,13 @@ exports.subscribe = function(socketio) {
   });
 
   function onSave(doc, cb) {
+    doc = _.cloneDeep(doc);
     doc.secret = null;
     socketio.to("file:" + doc._id).emit('save', doc);
   }
 
   function onRemove(doc, cb) {
+    doc = _.cloneDeep(doc);
     doc.secret = null;
     socketio.to("file:" + doc._id).emit('remove', doc);
   }
