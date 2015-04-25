@@ -47,8 +47,12 @@
         margin-bottom: 20px;
         font-weight: bold;
         background: darken(@brand-secondary, 3);
+        .transition(background 0.7s);
+
         &:hover, &:active, &:focus {
           text-decoration: none;
+          outline: none;
+          background: darken(@brand-secondary, 10);
         }
 
         sup {
