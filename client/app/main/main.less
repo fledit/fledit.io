@@ -10,11 +10,11 @@
   }
 
   &__landing {
-    position: relative;    
+    position: relative;
   }
 
   &__editor {
-    margin:0; 
+    margin:0;
     overflow: hidden;
     background:white;
     position:absolute;
@@ -49,7 +49,7 @@
         margin-bottom: 20px;
         font-weight: bold;
         background: darken(@brand-secondary, 3);
-        &:hover, &:active, &:focus { 
+        &:hover, &:active, &:focus {
           text-decoration: none;
         }
 
@@ -60,26 +60,30 @@
           position: relative;
           top:-10px;
         }
+
+        &__logo {
+          margin-top:-5px;
+        }
       }
 
       a { color:inherit; }
 
-      &__action {        
+      &__action {
         white-space: nowrap;
 
         .transition(0.4s);
-        
+
         &.ng-hide {
           opacity:0;
           .translate(-100%, 0);
-        } 
+        }
 
         &__dropdown {
           min-width:100%;
 
           & &__active > a {
-            font-weight:bold; 
-          } 
+            font-weight:bold;
+          }
         }
       }
 
@@ -98,7 +102,7 @@
       background:white;
       position:relative;
       padding:0;
-      
+
       &__alerts {
         z-index: 100;
         position:absolute;
@@ -110,7 +114,7 @@
           &.ng-hide {
             opacity:0;
             .translate(0, -100%);
-          }    
+          }
         }
       }
 
@@ -134,14 +138,14 @@
         .transition(0.4s);
         &.ng-hide {
           opacity:0;
-        }  
+        }
       }
 
       &__footer {
         text-align: right;
         position:absolute;
         right:10px;
-        bottom:10px;        
+        bottom:10px;
 
         &__save {
           border-radius: 0;
