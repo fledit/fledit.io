@@ -11,5 +11,6 @@ angular.module('fledit', [
   'ui.bootstrap',
   'ui.ace',
   'ui.validate',
+  'infinite-scroll',
   'btford.socket-io'
 ]);
