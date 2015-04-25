@@ -17,11 +17,19 @@ angular.module('fledit')
     decoratorFn.$inject = ['$state', 'parent'];
     $stateProvider.decorator('views', decoratorFn);
 
-  }).run(function($rootScope, $state, Progress) {
+  }).run(function($rootScope, $state, $location, $window, Progress) {
     // Start progress indicator
     $rootScope.$on("$stateChangeStart", Progress.start);
     // Stop progress indicator
-    $rootScope.$on("$stateChangeSuccess", Progress.complete);
+    $rootScope.$on("$stateChangeSuccess", function() {
+      // Stop progress indicator
+      Progress.complete();
+      // Google Analytics  exists
+      if($window.ga) {
+        // Send 'pageview' to Google Analytics
+        $window.ga('send', 'pageview', { page: $location.url() } );
+      }
+    });
     // Stop progress indicator
     $rootScope.$on("$stateChangeError", function() {
       // By default, go to the 404 state
