@@ -74,6 +74,27 @@
 
       &__action {
         white-space: nowrap;
+        display: block;
+        height:30px;
+        line-height:30px;
+        padding:0 5px;
+        margin-bottom:5px;
+        outline:0;
+
+        .active &,
+        .active &:hover {
+          font-weight: bold;
+          background:mix(@brand-secondary, contrast(@brand-secondary), 80);
+        }
+
+        &:hover, &:active, &:focus {
+          text-decoration: none;
+          outline:0;
+        }
+
+        &:hover {
+          background:mix(@brand-secondary, contrast(@brand-secondary), 90);
+        }
 
         .transition(0.4s);
 
@@ -81,6 +102,7 @@
           opacity:0;
           .translate(-100%, 0);
         }
+
 
         &__dropdown {
           min-width:100%;

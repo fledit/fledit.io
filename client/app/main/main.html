@@ -11,12 +11,20 @@
             Create, share and edit JSON files in realtime.
           </p>
 
-          <a ui-sref="main.mine" class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
-            Your files
-          </a>
-          <a class="btn btn-primary btn-block main__editor__sidebar__action" ui-sref="main" ng-hide="'main' | isState">
-            New file
-          </a>
+          <ul class="list-unstyled">
+            <li ui-sref-active-eq="active">
+              <a class="main__editor__sidebar__action" ui-sref="main">
+                <i class="fa fa-plus fa-fw"></i>
+                &nbsp; New file
+              </a>
+            </li>
+            <li ui-sref-active-eq="active">
+              <a ui-sref="main.mine" class="main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
+                <i class="fa fa-files-o fa-fw"></i>
+                &nbsp; Your files
+              </a>
+            </li>
+          </ul>
 
           <ul class="list-inline main__editor__sidebar__links">
             <li>
