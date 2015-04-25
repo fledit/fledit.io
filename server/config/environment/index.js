@@ -24,6 +24,10 @@ var all = {
   secrets: {
     session: 'fledit-secret'
   },
+  // Default items limit
+  paginate_by: 10,
+  // Maximum number of item per page
+  max_paginate_by: 20,
   // MongoDB connection options
   mongo: {
     options: {

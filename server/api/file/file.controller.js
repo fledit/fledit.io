@@ -1,25 +1,32 @@
 'use strict';
 
-var _ = require('lodash');
+var       _ = require('lodash'),
+RateLimiter = require('limiter').RateLimiter;
+
+var response = require("../response"),
+   paginator = require("../paginator");
+
 var File = require('./file.model');
-var RateLimiter = require('limiter').RateLimiter;
 // We can't allow more than 10 try to get file with secret by hour
 var secretLimiter = new RateLimiter(10, 'hour');
 // We can't allow more than 30 creations by hour
 var createLimiter = new RateLimiter(30, 'hour');
 
 
-function handleError(res, err) {
-  return res.send(500, err);
-}
-
-
 // Get list of files
 exports.index = function(req, res) {
-  File.find(function (err, files) {
-    if(err) { return handleError(res, err); }
-    return res.json(200, files);
-  });
+  // Build paginator parameters
+  var params = paginator.offset(req);
+
+  File
+    .find()
+    .limit(params.limit)
+    .skip(params.offset)
+    .sort('-updated_at')
+    .exec(function (err, files) {
+      if(err) { return response.handleError(res, err); }
+      return res.json(200, files);
+    });
 };
 
 // Get a single file
@@ -30,12 +37,12 @@ exports.show = function(req, res) {
   var callback = function (err, file) {
     // Something happend
     if(err) {
-      return handleError(res, err);
+      return response.handleError(res, err);
     // Wrong secret
     } else if(!file && secret) {
       // Notice the limiter
       secretLimiter.removeTokens(1, function() {
-        return handleError(res, {error: "Wrong secret"});
+        return response.handleError(res, {error: "Wrong secret"});
       });
     // File not found
     } else if(!file) {
@@ -49,7 +56,7 @@ exports.show = function(req, res) {
   if(secret) {
     // Check tries remaing
     if( secretLimiter.getTokensRemaining() < 1 ) {
-      return handleError(res, {error: "Reached rate limit"});
+      return response.handleError(res, {error: "Reached rate limit"});
     }
     File.findOne({_id: req.params.id, secret: secret}, callback);
   } else {
@@ -63,11 +70,11 @@ exports.create = function(req, res) {
   if( createLimiter.tryRemoveTokens(1) ) {
     // Enought tokens to create a file
     File.create(req.body, function(err, file) {
-      if(err) { return handleError(res, err); }
+      if(err) { return response.handleError(res, err); }
       return res.json(201, file);
     });
   } else {
-    return handleError(res, {error: "Reached rate limit"});
+    return response.handleError(res, {error: "Reached rate limit"});
   }
 };
 
@@ -76,10 +83,10 @@ exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
   // Check tries remaing
   if( secretLimiter.getTokensRemaining() < 1 ) {
-    return handleError(res, { error: "Reached rate limit" });
+    return response.handleError(res, { error: "Reached rate limit" });
   }
   File.findOne({_id: req.params.id, secret: req.body.secret}, function (err, file) {
-    if (err) { return handleError(res, err); }
+    if (err) { return response.handleError(res, err); }
     if(file === null) {
       // Notice the limiter
       secretLimiter.removeTokens(1, function() {
@@ -93,7 +100,7 @@ exports.update = function(req, res) {
     // Avoid secret regeneration
     file.secret = req.body.secret;
     file.save(function (err) {
-      if (err) { return handleError(res, err); }
+      if (err) { return response.handleError(res, err); }
       return res.json(200, file);
     });
   });
@@ -103,11 +110,11 @@ exports.update = function(req, res) {
 exports.delete = function(req, res) {
   // Check tries remaing
   if( secretLimiter.getTokensRemaining() < 1 ) {
-    return handleError(res, { error: "Reached rate limit" });
+    return response.handleError(res, { error: "Reached rate limit" });
   }
     // Delete the file
   File.remove({_id: req.params.id, secret: req.query.secret}, function (err, removed) {
-    if (err) { return handleError(res, err); }
+    if (err) { return response.handleError(res, err); }
     if(removed === 0) {
       // Notice the limiter
       secretLimiter.removeTokens(1, function() {
