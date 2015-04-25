@@ -38,8 +38,10 @@
 
     &__item {
 
+      @item-width: 600px;
+
       position: relative;
-      width: 500px;
+      width: @item-width;
       min-height: 100%;
       margin:0;
       overflow: hidden;
@@ -55,7 +57,7 @@
 
       &.ng-leave,
       &.ng-enter.ng-enter-active {
-        width:500px;
+        width:@item-width;
       }
 
       &:first-child {
@@ -68,7 +70,7 @@
         text-align:left;
         white-space: normal;
         position:relative;
-        width: 500px - 20px;
+        width: @item-width - 20px;
         margin: 10px;
         z-index: @zindex-modal-background + 10;
         .transition(0.8s margin);
