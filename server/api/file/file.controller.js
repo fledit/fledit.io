@@ -29,6 +29,22 @@ exports.index = function(req, res) {
     });
 };
 
+// Search files
+exports.search = function(req, res) {
+  // Build paginator parameters
+  var params = paginator.offset(req);
+
+  File
+    .find()
+    .limit(params.limit)
+    .skip(params.offset)
+    .sort('-updated_at')
+    .exec(function (err, files) {
+      if(err) { return response.handleError(res, err); }
+      return res.json(200, files);
+    });
+};
+
 // Get a single file
 exports.show = function(req, res) {
   // Gets secret

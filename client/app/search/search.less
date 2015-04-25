@@ -1,0 +1,49 @@
+.search {
+  @corner-bg: darken(@body-bg, 3%);
+  color:contrast(@body-bg);
+  font-size:1em;
+  padding:80px 0;
+  padding:80px 0;
+
+  &__back,
+  &__back:hover,
+  &__back:active {
+    position: fixed;
+    top:10px;
+    left:10px;
+    color: inherit;
+    z-index: 20;
+    text-shadow: 0 0 10px @body-bg;
+
+      @media (max-width: @screen-sm-min) {
+        position: absolute;
+      }
+  }
+
+  &__content {
+
+    position: relative;
+    z-index: 10;
+
+    a {
+      color: mix( contrast(@body-bg), @link-color, 60);
+    }
+
+    &__title {
+      text-align: center;
+      padding-bottom:40px;
+      margin-bottom:40px;
+      position: relative;
+
+      &:after {
+        content:"";
+        position: absolute;
+        top:100%;
+        left:50%;
+        border-top: 1px solid contrast(@body-bg);
+        width: 70px;
+        margin-left: -70px / 2px;
+      }
+    }
+  }
+}
