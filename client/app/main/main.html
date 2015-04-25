@@ -26,28 +26,38 @@
             </li>
           </ul>
 
-          <ul class="list-inline main__editor__sidebar__links">
-            <li>
-              <a ui-sref="page.about">
-                About
-              </a>
-            </li>
-            <li>
-              <a ui-sref="page.developer">
-                Developer
-              </a>
-            </li>
-            <li>
-              <a ui-sref="page.tos">
-                TOS
-              </a>
-            </li>
-            <li>
-              <a target="_blank" href="https://github.com/fledit">
-                Github
-              </a>
-            </li>
-          </ul>
+          <div class="main__editor__sidebar__footer">
+            <ul class="list-inline main__editor__sidebar__footer__links">
+              <li>
+                <a ui-sref="page.about">
+                  About
+                </a>
+              </li>
+              <li>
+                <a ui-sref="page.developer">
+                  Developer
+                </a>
+              </li>
+              <li>
+                <a ui-sref="page.tos">
+                  TOS
+                </a>
+              </li>
+              <li>
+                <a target="_blank" href="https://github.com/fledit">
+                  Github
+                </a>
+              </li>
+            </ul>
+            <form class="main__editor__sidebar__footer__search input-group" ng-submit="search(q)">
+              <input type="text" class="form-control" required ng-model="q" />
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">
+                  Search
+                </button>
+              </span>
+            </form>
+          </div>
         </div>
         <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>
           <div class="main__editor__drop__alerts">

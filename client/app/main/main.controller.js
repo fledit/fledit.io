@@ -1,12 +1,18 @@
 'use strict';
 
-angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, Restangular, filemanager) {
+angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r, filemanager) {
 
   var loadFiles = function() {
     filemanager.all().then(function(files) {
       // Get all files
       $scope.myfiles = _.values(files);
     });
+  };
+
+
+  // Submit a new search, go straight to the same state
+  $scope.search = function(q) {
+    $state.go('search', { q: q });
   };
 
   $scope.addFile = function() {
@@ -18,7 +24,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, Re
     // Turn off any existing error
     $scope.error = null;
 
-    Restangular.all('files').post(data).then(function(data) {
+    r.all('files').post(data).then(function(data) {
       // Success!
       if(data._id) {
         // Reset the scope value
