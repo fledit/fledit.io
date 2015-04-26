@@ -34,9 +34,7 @@ exports.search = function(req, res) {
   // Build paginator parameters
   var params = paginator.offset(req);
   File
-    .find()
-    .where('name')
-    .equals(req.query.q)
+    .find({ "name": { "$regex": req.query.q, "$options": "i" }})
     .limit(params.limit)
     .skip(params.offset)
     .sort('-updated_at')
