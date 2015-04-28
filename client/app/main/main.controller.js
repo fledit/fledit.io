@@ -9,6 +9,18 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     });
   };
 
+  var dropTextFile = function(file, old) {
+    // Skip unefined value
+    if(file) {
+      try {
+        var parsedFile = angular.fromJson(file);
+        $scope.newFile = JSON.stringify(parsedFile, null, 4);
+      } catch (e) {
+        $scope.error = "This is not a JSON file.";
+      }
+    }
+  };
+
 
   // Submit a new search, go straight to the same state
   $scope.search = function(q) {
@@ -48,6 +60,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     }
   };
 
+  $scope.$watch("fileText", dropTextFile);
   $scope.$on("filemanager:updated", loadFiles);
   loadFiles();
 

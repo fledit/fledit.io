@@ -8,18 +8,17 @@ angular.module('fledit')
             },
             link: function (scope, elem, attrs, ngModel) {
 
-
-                elem.bind('dragenter', function(evt) {
+                elem.bind('dragover', function(evt) {
                     evt.stopPropagation();
                     evt.preventDefault();
+                });
+
+                elem.bind('dragenter', function(evt) {
                     elem.addClass(scope.dragClass || 'dropzone--active');
                 });
 
                 elem.bind('dragleave', function(evt) {
-                    evt.stopPropagation();
-                    evt.preventDefault();
                     elem.removeClass(scope.dragClass || 'dropzone--active');
-                    console.log(1);
                 });
 
                 elem.bind('drop', function(evt) {

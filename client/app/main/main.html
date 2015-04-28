@@ -1,8 +1,14 @@
-<div class="main">
+<div class="main" dropzone ng-model="fileText">
+  <div class="main__dropzone-active">
+    <div class="main__dropzone-active__wrapper lead text-center">
+      <i class="fa fa-upload fa-2x"></i>
+      <br />Drop to upload to Fledit
+    </div>
+  </div>
   <div class="main__wrapper" screen-height="400">
     <div class="container-fluid">
       <div class="row main__editor">
-        <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs">
+        <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs" >
           <a ui-sref="main" class="main__editor__sidebar__brand text-center">
             <img src="//logo-js.herokuapp.com/fledit/" class="main__editor__sidebar__brand__logo" width="100" />
             Fledit <sup>beta</sup>
@@ -66,7 +72,7 @@
               {{error}}
             </div>
           </div>
-          <form  name="editorForm" ng-submit="addFile()">
+          <form name="editorForm" ng-submit="addFile()">
             <div ui-ace="{mode: 'json', theme: 'clouds'}"
                  ng-model="$parent.newFile"
                  required
