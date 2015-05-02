@@ -11,7 +11,7 @@
     "angular-sanitize": "1.2.*",
     "angular-bootstrap": "~0.11.0",
     "lodash": "~2.4.1",
-    "angular-ui-router": "~0.2.10",
+    "angular-ui-router": "0.2.14",
     "restangular": "~1.4.0",
     "angular-ui-ace": "bower",
     "angular-local-storage": "~0.1.5",
