@@ -1,0 +1,20 @@
+<div class="main__file__form">
+  <div class="container-fluid" ng-if="file.validator">
+    <div class="row">
+      <div  class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <p class="small text-muted">
+          This form is generated automatically using a <a ui-sref="main.file({ id: validator._id })">JSON schema</a>.
+        </p>
+        <form sf-schema="validator.content" sf-form="form" sf-model="file.content"></form>
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="!file.validator" class="main__file__form__error">
+    <i class="fa fa-warning"></i>
+    <p>Those data can't be<br />visualized as a form</p>
+    <p class="main__file__form__error__add">
+      <a ui-sref="main.file.validator({ id: file._id })">Add a JSON schema</a>
+    </p>
+  </div>
+</div>

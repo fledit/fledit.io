@@ -12,5 +12,6 @@ angular.module('fledit', [
   'ui.ace',
   'ui.validate',
   'infinite-scroll',
-  'btford.socket-io'
+  'btford.socket-io',
+  'schemaForm'
 ]);

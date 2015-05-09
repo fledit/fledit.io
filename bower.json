@@ -23,13 +23,15 @@
     "nghandsontable": "~0.5.0",
     "animate.css": "~3.2.0",
     "ngInfiniteScroll": "~1.2.0",
-    "modernizr": "~2.8.3"
+    "modernizr": "~2.8.3",
+    "angular-schema-form": "~0.8.2"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
   },
   "resolutions": {
-    "angular": "~1.2.*"
+    "angular": "~1.2.*",
+    "tv4": "~1.1.4"
   }
 }
