@@ -2,10 +2,10 @@
   <div class="container-fluid" ng-if="file.validator">
     <div class="row">
       <div  class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <form sf-schema="validator.content" sf-form="form" sf-model="file.content"></form>
         <p class="small text-muted">
           This form is generated automatically using a <a ui-sref="main.file({ id: validator._id })">JSON schema</a>.
         </p>
-        <form sf-schema="validator.content" sf-form="form" sf-model="file.content"></form>
       </div>
     </div>
   </div>
