@@ -13,6 +13,10 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     // Skip unefined value
     if(file) {
       try {
+        if( ! $state.is("main") ) {
+          $state.go("main")
+        }
+
         var parsedFile = angular.fromJson(file);
         $scope.newFile = JSON.stringify(parsedFile, null, 4);
       } catch (e) {
