@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('fledit')
   .service('Paginator', function() {
     function Paginator(objects) {
@@ -13,7 +15,7 @@ angular.module('fledit')
 
     // Load more object!
     Paginator.prototype.next = function() {
-      var that = this;
+      var that = this, params;
       // We are busy to load some object here...
       that.busy = true;
       // Increment offset
