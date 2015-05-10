@@ -64,6 +64,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     }
   };
 
+  $scope.showSidebar = false;
   // Hide the sidebar on state change
   $scope.$on("$stateChangeStart", function() {
     $scope.showSidebar = false;
