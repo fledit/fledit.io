@@ -64,6 +64,10 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     }
   };
 
+  // Hide the sidebar on state change
+  $scope.$on("$stateChangeStart", function() {
+    $scope.showSidebar = false;
+  });
   $scope.$watch("fileText", dropTextFile);
   $scope.$on("filemanager:updated", loadFiles);
   loadFiles();

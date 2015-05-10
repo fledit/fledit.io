@@ -94,7 +94,7 @@
         }
 
         &__brand {
-          display: none;
+          .hidden-xs();
         }
 
         &__lead {
@@ -110,6 +110,7 @@
         margin-bottom: 20px;
         font-weight: bold;
         background: darken(@brand-secondary, 3);
+        display: block;
         .transition(background 0.7s);
 
         &:hover, &:active, &:focus {
@@ -197,6 +198,7 @@
       height: @line-height-computed * 2px;
       background: darken(@brand-secondary, 10%);
       color:white;
+      .visible-xs();
 
       a { color:inherit; }
 
