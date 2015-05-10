@@ -6,7 +6,26 @@
 		how to get or post file directly from Fledit.
 	</p>
 
-	<h2>REST API</h2>
+	<h2>Javscript client</h2>
+  <p>
+    <a href="http://github.com/fledit/fledit.js">Fledit.js</a> is a client for node and the browser.
+    This library allows you to save and retreive in Fledit data instantanetly.
+  </p>
+
+  <h3>Installation</h3>
+  <p>For Node.js or IO.js:</p>
+  <pre>npm install --save fledit</pre>
+  <p>For the browser:</p>
+  <pre>bower install --save fledit</pre>
+
+  <h3>Usage</h3>
+
+  <div ui-ace="{mode: 'javascript', theme: 'clouds', onLoad: setInfiniteLines, useWrapMode: true, showGutter:false }"
+       readonly
+       style="height: 370px"
+       ng-model="codeSample"></div>
+
+  <h2>REST API</h2>
 	<p>
 		The API is available on <a href="http://www.fledit.io/api">fledit.io/api</a>.
 		As you may guess, every responses and requests use a
@@ -46,6 +65,9 @@
 		This operation lets you navigate through every public files.
 		<strong>It is only available during the beta and should be replaced by
 		more accurate endpoints soon.</strong>
+    The result will be paginated.
+    You must pass an <code>offset</code> and a <code>limit</code> parameters to navigate through pages.
+    The default <code>limit</code> size is 10.
 	</p>
 
 	<h3 class="developer__endpoint developer__endpoint--get">
@@ -58,6 +80,19 @@
 		<code>secret</code>. This parameter lets you check if a given file matchs with
 		the secret token you send.
 	</p>
+
+
+  <h3 class="developer__endpoint developer__endpoint--get">
+    <span class="label label-primary">GET</span>&nbsp;
+    /api/files/search
+  </h3>
+  <p>
+    This operation lets you search a public file by its name.
+    The query parameter <code>q</code> must contain the text you want to look for.
+    The result will be paginated.
+    You must pass an <code>offset</code> and a <code>limit</code> parameters to navigate through pages.
+    The default <code>limit</code> size is 10.
+  </p>
 
   <h3 class="developer__endpoint developer__endpoint--put">
     <i class="fa fa-lock pull-right text-muted" tooltip="This operation need authentication"></i>
