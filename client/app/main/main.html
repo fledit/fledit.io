@@ -8,12 +8,12 @@
   <div class="main__wrapper" screen-height="400">
     <div class="container-fluid">
       <div class="row main__editor">
-        <div class="col-sm-3 col-lg-2 main__editor__sidebar hidden-xs" >
+        <div class="col-sm-3 col-lg-2 main__editor__sidebar" ng-class="{ 'main__editor__sidebar--collapse': !showSidebar }">
           <a ui-sref="main" class="main__editor__sidebar__brand text-center">
             <img src="//logo-js.herokuapp.com/fledit/" class="main__editor__sidebar__brand__logo" width="100" />
             Fledit <sup>beta</sup>
           </a>
-          <p class="lead">
+          <p class="lead main__editor__sidebar__lead">
             Create, share and edit JSON files in realtime.
           </p>
 
@@ -65,6 +65,15 @@
               </span>
             </form>
           </div>
+        </div>
+        <div class="main__editor__mobile-header">
+          <a class="main__editor__mobile-header__brand"  ui-sref="main">
+            <img src="//logo-js.herokuapp.com/fledit/" class="main__editor__mobile-header__brand__logo" />
+            Fledit <sup>beta</sup>
+          </a>
+          <a class="main__editor__mobile-header__toggler" ng-click="showSidebar = !showSidebar">
+            <i class="fa fa-bars fa-2x"></i>
+          </a>
         </div>
         <div class="col-sm-9 col-lg-10 main__editor__drop" ui-view>
           <div class="main__editor__drop__alerts">
