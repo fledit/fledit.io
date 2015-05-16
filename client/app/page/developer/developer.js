@@ -8,7 +8,7 @@ angular.module('fledit')
         templateUrl: 'app/page/developer/developer.html',
         resolve: {
           sample: function($http) {
-            return $http.get("app/page/developer/sample");
+            return $http.get("assets/data/sample.js");
           }
         },
         controller: function($scope, sample) {
