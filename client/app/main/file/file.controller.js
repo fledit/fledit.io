@@ -88,12 +88,12 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // True if the current file can be visualised as a table
   $scope.hasTableView = function() {
     // Enumerable type
-    return file && [Array, Object].indexOf(file.constructor) > -1;
+    return $scope.secret && file && [Array, Object].indexOf(file.constructor) > -1;
   };
 
   // True if the current file can be visualised as a form
   $scope.hasFormView = function() {
-    return file.validator;
+    return $scope.secret && file.validator;
   };
 
   // Unsubscribe to the file when the scope is destroyed
