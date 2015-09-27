@@ -32,6 +32,7 @@
   },
   "resolutions": {
     "angular": "~1.2.*",
-    "tv4": "~1.1.4"
+    "tv4": "~1.1.4",
+    "angular-ui-ace": "~0.2.3"
   }
 }

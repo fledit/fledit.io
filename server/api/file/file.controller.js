@@ -69,6 +69,8 @@ exports.show = function(req, res) {
       return res.send(404);
     // Everything is OK
     } else {
+      // Alway use the given secret as secret
+      file.secret = secret;
       return res.json(file);
     }
   };

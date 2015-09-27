@@ -7,18 +7,21 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // Save the editor instance for further update
   // @tofix: ui-ace doesn't support changes from the scope, updating the editor
   // is a temporary solution (clue: ngModel.$render isn't called).
-  $scope.saveEditor = function(session) {
+  $scope.prepareEditor = function(session) {
     editor = session;
-    // We add a command to submit the form from the keep board
-    editor.commands.addCommand({
-      name: "submit",
-      exec: function() {
-        $scope.$apply(function() {
-          return $scope.noParseError($scope.content) && $scope.saveFile()
-        });
-      },
-      bindKey: "Ctrl-S"
-    });
+    // Bind shortcuts only if a secret is present
+    if( file.secret ) {
+      // We add a command to submit the form from the keep board
+      editor.commands.addCommand({
+        name: "submit",
+        exec: function() {
+          $scope.$apply(function() {
+            return $scope.noParseError($scope.content) && $scope.saveFile()
+          });
+        },
+        bindKey: "Ctrl-S"
+      });
+    }
   }
   // Path to the api endpoint of the current file
   $scope.rawFilePath = function() {
@@ -51,8 +54,6 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   $scope.saveFile = function() {
     // Avoid reloading file
     $scope.updatedFile = null;
-    // Allows edition
-    file.secret = $scope.secret;
     // Parse text content to JSON
     file.content = angular.fromJson($scope.content)
     // And save
@@ -105,16 +106,14 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
 
   // If a secret is given, we must store it and change search
   if($stateParams.secret) {
-    file.secret = $scope.secret = $stateParams.secret;
+    $scope.secret = $stateParams.secret;
     // Save the secret token in local storage
     filemanager.save(file);
     // Reset the search parameter
     $location.search("secret", null);
   // A secret might by given from localstorage
   } else {
-    filemanager.secret($stateParams.id).then(function(secret) {
-      $scope.secret = secret;
-    })
+    $scope.secret = file.secret;
   }
 
   // Watch current file instance
@@ -127,6 +126,9 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
       // Does the editor already rexist?
       if(editor && editor.getValue() !== $scope.content ) {
         editor.setValue($scope.content);
+        // The readonly html attribute may not work on ui-ace
+        // after reseting its value
+        editor.setReadOnly(!file.secret);
       }
     }
   // Deep watch

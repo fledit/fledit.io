@@ -67,9 +67,8 @@
     <form name="editorForm">
       <div class="main__file__content__pre"
            ng-class="{ 'main__file__content__pre--readonly': !secret }"
-           ui-ace="{mode: 'json', theme: 'clouds', onLoad: saveEditor}"
+           ui-ace="{mode: 'json', theme: 'clouds', onLoad: prepareEditor}"
            ui-validate="'noParseError($value)'"
-           readonly="{{!secret}}"
            required
            ng-model="$parent.content">
       </div>

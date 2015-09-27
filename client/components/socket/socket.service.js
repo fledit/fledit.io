@@ -25,9 +25,9 @@ angular.module('fledit').factory('socket', function(socketFactory) {
        * @param {Function} cb
        */
       subscribe: function (fileId, cb) {
-        cb = cb || angular.noop; 
+        cb = cb || angular.noop;
         // Subscrive to the given room
-        socket.emit('subscribe', fileId, cb);        
+        socket.emit('subscribe', fileId, cb);
         return socket;
       },
 
@@ -36,7 +36,7 @@ angular.module('fledit').factory('socket', function(socketFactory) {
        *
        * @param fileId
        */
-      unsubscribe: function (fileId) {    
+      unsubscribe: function (fileId) {
         socket.removeAllListeners('save');
         socket.removeAllListeners('remove');
         // Subscrive to the given room
