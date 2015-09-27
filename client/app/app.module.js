@@ -13,5 +13,6 @@ angular.module('fledit', [
   'ui.validate',
   'infinite-scroll',
   'btford.socket-io',
+  'duScroll',
   'schemaForm'
 ]);

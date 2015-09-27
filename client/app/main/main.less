@@ -1,5 +1,95 @@
 .main {
 
+  &__tutorial {
+    background:@brand-secondary;
+    padding-top:7%;
+    color:white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+
+  	&:before {
+  		content:"";
+  		position: absolute;
+  		border:1000px solid transparent;
+  		border-top-color: fade(white, 1);
+  		left:50%;
+  		top:0;
+  		.translate(-50%, 0);
+  	}
+
+
+    &__logo {
+      padding-bottom:7%;
+      font-weight:bold;
+      font-size:2em;
+
+      img {
+        display:inline-block;
+      }
+
+      sup {
+        font-size:0.4em;
+        opacity:0.7;
+        text-transform: uppercase;
+        position: relative;
+        top:-10px;
+      }
+    }
+
+    &__step {
+
+      padding:0 30px;
+
+      &--first:after {
+        display:none;
+      }
+
+      &:after {
+        content:"";
+        font-family:FontAwesome;
+        font-weight:100;
+        position:absolute;
+        left:0;
+        top:30px;
+        font-size:50px;
+      }
+
+      &__icon {
+        margin:auto;
+        display:block;
+        line-height:120px;
+        font-size:40px;
+        height:120px;
+        width:80px;
+        border:1px solid white;
+        margin-bottom:10px;
+        border-radius:10px;
+        position:relative;
+        overflow:hidden;
+
+        &__index {
+          .label();
+          border-radius:0 0 10px 0;
+          border:1px solid white;
+          border-left:0;
+          border-top:0;
+          margin-right:10px;
+          position:absolute;
+          top:0;
+          left:0;
+          font-size:14px;
+        }
+      }
+    }
+
+    &__get-started {
+      z-index:130;
+      position:relative;
+      margin-top:7%;
+    }
+
+  }
 
   &.dropzone--active {
     .main__dropzone-active {
