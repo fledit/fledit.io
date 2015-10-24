@@ -59,9 +59,15 @@
               </a>
             </li>
             <li ui-sref-active-eq="active">
-              <a ui-sref="main.mine" class="main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
+              <a ui-sref="main.mine" class="main__editor__sidebar__action" ng-show="myfiles.length">
                 <i class="fa fa-files-o fa-fw"></i>
                 &nbsp; Your files
+              </a>
+            </li>
+            <li>
+              <a href="/auth/github" class="main__editor__sidebar__action">
+                <i class="fa fa-github fa-fw"></i>
+                &nbsp; Sign in with Github
               </a>
             </li>
           </ul>
