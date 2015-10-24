@@ -4,6 +4,7 @@ angular.module('fledit', [
   'ngCookies',
   'ngSanitize',
   'ngAnimate',
+  'ngResource',
   'ngHandsontable',
   'restangular',
   'ui.router',

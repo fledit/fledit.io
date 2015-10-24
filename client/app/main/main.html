@@ -64,10 +64,17 @@
                 &nbsp; Your files
               </a>
             </li>
-            <li>
+            <li ng-hide="auth.isLoggedIn()">
               <a href="/auth/github" class="main__editor__sidebar__action">
                 <i class="fa fa-github fa-fw"></i>
                 &nbsp; Sign in with Github
+              </a>
+            </li>
+            </li>
+            <li ng-show="auth.isLoggedIn()">
+              <a ng-click="auth.logout()" class="main__editor__sidebar__action">
+                <i class="fa fa-sign-out fa-fw"></i>
+                &nbsp; Sign out
               </a>
             </li>
           </ul>
