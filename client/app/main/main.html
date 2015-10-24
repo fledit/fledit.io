@@ -1,5 +1,5 @@
 <div class="main" dropzone ng-model="fileText">
-  <div class="main__tutorial" screen-height="400" ng-show="'main' | isState">
+  <div class="main__tutorial" screen-height="400" ng-show="('main' | isState) && showIntroduction">
     <div class="container lead">
       <div class="main__tutorial__logo">
         <img src="/assets/images/fledit-white.svg" class="main__editor__sidebar__brand__logo" width="100" />
@@ -43,7 +43,7 @@
     <div class="container-fluid">
       <div class="row main__editor" id="editor">
         <div class="col-sm-3 col-lg-2 main__editor__sidebar main__editor__sidebar--collapse" ng-class="{ 'main__editor__sidebar--collapse': !showSidebar }">
-          <a ui-sref="main" class="main__editor__sidebar__brand text-center">
+          <a ui-sref="main" ui-sref-opts="{ inherit: false }" class="main__editor__sidebar__brand text-center">
             <img src="/assets/images/fledit-white.svg" class="main__editor__sidebar__brand__logo" width="100" />
             Fledit <sup>beta</sup>
           </a>
@@ -53,7 +53,7 @@
 
           <ul class="list-unstyled">
             <li ui-sref-active-eq="active">
-              <a class="main__editor__sidebar__action" ui-sref="main">
+              <a class="main__editor__sidebar__action" ui-sref="main({new: 1})">
                 <i class="fa fa-plus fa-fw"></i>
                 &nbsp; New file
               </a>

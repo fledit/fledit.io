@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r, filemanager) {
+angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, $stateParams, r, filemanager) {
 
   var loadFiles = function() {
     filemanager.all().then(function(files) {
@@ -64,6 +64,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
     }
   };
 
+  $scope.showIntroduction = !$stateParams.new;
   $scope.showSidebar = false;
   // Hide the sidebar on state change
   $scope.$on("$stateChangeStart", function() {
@@ -72,5 +73,4 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, r,
   $scope.$watch("fileText", dropTextFile);
   $scope.$on("filemanager:updated", loadFiles);
   loadFiles();
-
 });
