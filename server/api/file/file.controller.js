@@ -102,6 +102,7 @@ exports.create = function(req, res) {
 
 // Updates an existing file in the DB.
 exports.update = function(req, res) {
+  console.log(req.isAuthenticated(), req.user);
   if(req.body._id) { delete req.body._id; }
   // Check tries remaing
   if( secretLimiter.getTokensRemaining() < 1 ) {

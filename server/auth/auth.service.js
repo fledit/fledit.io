@@ -7,31 +7,48 @@ var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
 var compose = require('composable-middleware');
 var User = require('../api/user/user.model');
-var validateJwt = expressJwt({ secret: config.secrets.session });
+
+function authenticate() {
+  return compose()
+    // Validate jwt
+    .use(function(req, res, next) {
+      // allow access_token to be passed through query parameter as well
+      if (req.query && req.query.hasOwnProperty('access_token')) {
+        req.headers.authorization = 'Bearer ' + req.query.access_token;
+      }
+      // Validate token
+      expressJwt({
+        secret: config.secrets.session,
+        credentialsRequired: false
+      })(req, res, next);
+    })
+    // Attach user to request
+    .use(function findUser(req, res, next) {
+      if(req.user) {
+        User.findById(req.user._id, function (err, user) {
+          if (err) return next(err);
+          if (!user) return res.status(401).send('Unauthorized');
+          req.user = user;
+          next();
+        });
+      } else {
+        next();
+      }
+    });
+}
+
 
 /**
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403
  */
 function isAuthenticated() {
-  return compose()
-    // Validate jwt
+  return compose(authenticate())
     .use(function(req, res, next) {
-      // allow access_token to be passed through query parameter as well
-      if(req.query && req.query.hasOwnProperty('access_token')) {
-        req.headers.authorization = 'Bearer ' + req.query.access_token;
+      if(!req.user) {
+        return res.send(401);
       }
-      validateJwt(req, res, next);
-    })
-    // Attach user to request
-    .use(function(req, res, next) {
-      User.findById(req.user._id, function (err, user) {
-        if (err) return next(err);
-        if (!user) return res.status(401).send('Unauthorized');
-
-        req.user = user;
-        next();
-      });
+      next();
     });
 }
 
@@ -70,6 +87,7 @@ function setTokenCookie(req, res) {
   res.redirect('/');
 }
 
+exports.authenticate = authenticate;
 exports.isAuthenticated = isAuthenticated;
 exports.hasRole = hasRole;
 exports.signToken = signToken;

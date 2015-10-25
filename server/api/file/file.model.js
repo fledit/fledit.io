@@ -40,7 +40,11 @@ var FileSchema = new Schema({
   },
   error: {
     type: Object
-  }
+  },
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
 }, {
   versionKey: "revision"
 });
