@@ -26,7 +26,7 @@ angular.module('fledit').factory('filemanager', function($q, $rootScope) {
       // Get all files
       return this.all().then(function(files) {
         // Avoid losing secret when updating a local copy
-        if(!file.secret || files[file._id]) {
+        if(!file.secret && files[file._id]) {
           file.secret = files[file._id].secret || file.secret;
         }
         // Add (or update) this one

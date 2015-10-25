@@ -82,16 +82,37 @@ exports.show = function(req, res) {
     }
     File.findOne({_id: req.params.id, secret: secret}, callback);
   } else {
-    File.findById(req.params.id, callback);
+    File
+      .findById(req.params.id, callback);
   }
 };
 
-// Creates a new file in the DB.
+// Creates a new file in the DB.s
+exports.mine = function(req, res) {
+  // Build paginator parameters
+  var params = paginator.offset(req);
+
+  File
+    .find({ owner: req.user._id })
+    .limit(params.limit)
+    .skip(params.offset)
+    .sort('-updated_at')
+    .exec(function (err, files) {
+      if(err) { return response.handleError(res)(err); }
+      return res.json(200, files);
+    });
+};
+
+// Creates a new file in the DB.s
 exports.create = function(req, res) {
   // Check creations remaing
   if( createLimiter.tryRemoveTokens(1) ) {
+    // Copy raw request body
+    var file = req.body;
+    // Attach the current user to the file
+    file.owner = req.user || null;
     // Enought tokens to create a file
-    File.create(req.body, function(err, file) {
+    File.create(file, function(err, file) {
       if(err) { return response.handleError(res)(err); }
       return res.json(201, file);
     });
@@ -103,10 +124,50 @@ exports.create = function(req, res) {
 // Updates an existing file in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
+  var params, secret = req.body.secret || req.query.secret;
+  // Authentication without secret for authenticated user
+  if( !secret && req.isAuthenticated() ) {
+    // Find the file using user id
+    params = {_id: req.params.id, owner: req.user._id};
+  // Authentication using secret
+  } else {
+    // Check tries remaing
+    if( secretLimiter.getTokensRemaining() < 1 ) {
+      return response.handleError(res)({ error: "Reached rate limit" });
+    }
+    // Find the file using the secret
+    params = {_id: req.params.id, secret: secret};
+  }
+  // Get the file using the secret
+  File.findOne(params, function (err, file) {
+    if (err) { return response.handleError(res)(err); }
+    if(file === null) {
+      // Notice the limiter if a secret is given
+      if(secret) { secretLimiter.removeTokens(1); }
+      return res.send(404);
+    } else {
+      // Only content and name can be changed
+      file.content   = req.body.content;
+      file.name      = req.body.name;
+      file.validator = req.body.validator;
+      // Avoid secret regeneration
+      file.secret = secret;
+      file.save(function (err) {
+        if (err) { return response.handleError(res)(err); }
+        return res.json(200, file);
+      });
+    }
+  });
+};
+
+// Claim the ownership over a file
+exports.claim = function(req, res) {
   // Check tries remaing
   if( secretLimiter.getTokensRemaining() < 1 ) {
     return response.handleError(res)({ error: "Reached rate limit" });
   }
+  var secret = req.body.secret || req.query.secret;
+  // Get the file using the secret
   File.findOne({_id: req.params.id, secret: req.body.secret}, function (err, file) {
     if (err) { return response.handleError(res)(err); }
     if(file === null) {
@@ -114,17 +175,16 @@ exports.update = function(req, res) {
       secretLimiter.removeTokens(1, function() {
         return res.send(404);
       });
+    } else {
+      // Avoid secret regeneration
+      file.secret = secret;
+      // Use the request's user
+      file.owner = req.user;
+      file.save(function (err) {
+        if (err) { return response.handleError(res)(err); }
+        return res.json(200, file);
+      });
     }
-    // Only content and name can be changed
-    file.content   = req.body.content;
-    file.name      = req.body.name;
-    file.validator = req.body.validator;
-    // Avoid secret regeneration
-    file.secret = req.body.secret;
-    file.save(function (err) {
-      if (err) { return response.handleError(res)(err); }
-      return res.json(200, file);
-    });
   });
 };
 

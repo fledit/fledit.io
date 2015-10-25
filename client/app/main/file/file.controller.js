@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, Restangular, $stateParams, $location, filemanager) {
+angular.module('fledit').controller('MainFileCtrl', function ($scope, $document, $state, socket, file, Auth, Restangular, $stateParams, $location, filemanager) {
   var editor = $scope.updatedFile = null;
   // Copy of the database file to watch changes
   var master = file.clone();
@@ -10,7 +10,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   $scope.prepareEditor = function(session) {
     editor = session;
     // Bind shortcuts only if a secret is present
-    if( file.secret ) {
+    if( Auth.canEditFile(file) ) {
       // We add a command to submit the form from the keep board
       editor.commands.addCommand({
         name: "submit",
@@ -89,12 +89,12 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // True if the current file can be visualised as a table
   $scope.hasTableView = function() {
     // Enumerable type
-    return $scope.secret && file && [Array, Object].indexOf(file.constructor) > -1;
+    return Auth.canEditFile(file) && [Array, Object].indexOf(file.constructor) > -1;
   };
 
   // True if the current file can be visualised as a form
   $scope.hasFormView = function() {
-    return $scope.secret && file.validator;
+    return Auth.canEditFile(file) && file.validator;
   };
 
   // Unsubscribe to the file when the scope is destroyed
@@ -128,7 +128,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
         editor.setValue($scope.content);
         // The readonly html attribute may not work on ui-ace
         // after reseting its value
-        editor.setReadOnly(!file.secret);
+        editor.setReadOnly(! Auth.canEditFile(file) );
       }
     }
   // Deep watch

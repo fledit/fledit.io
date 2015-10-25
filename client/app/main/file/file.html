@@ -1,6 +1,6 @@
 <div class="main__file">
   <div class="main__file__meta hidden-xs">
-    <span ng-show="secret">
+    <span ng-show="auth.canEditFile(file)">
       <a ui-sref="main.file({id: file._id, secret: secret})">Admin link</a>
       —
       <a ng-click="remove(file, secret)" class="text-danger">Delete</a>
@@ -32,7 +32,7 @@
   </ul>
   <div class="main__file__heading">
     <form name="nameForm" ng-submit="saveFile()">
-      <div ng-show="secret">
+      <div ng-show="auth.canEditFile(file)">
         <a class="btn btn-default main__file__heading__validator"
            ng-class="{
             'btn-default': file.valid === null,
@@ -53,7 +53,7 @@
           </span>
         </div>
       </div>
-      <div ng-hide="secret">
+      <div ng-hide="auth.canEditFile(file)">
         <input type="text" class="form-control" ng-value="file.name || 'Untitled file'" readonly />
       </div>
     </form>
@@ -66,7 +66,6 @@
     </div>
     <form name="editorForm">
       <div class="main__file__content__pre"
-           ng-class="{ 'main__file__content__pre--readonly': !secret }"
            ui-ace="{mode: 'json', theme: 'clouds', onLoad: prepareEditor}"
            ui-validate="'noParseError($value)'"
            required

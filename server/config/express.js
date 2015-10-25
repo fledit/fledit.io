@@ -16,6 +16,7 @@ var path = require('path');
 var config = require('./environment');
 var prerender = require('prerender-node');
 var cors = require('cors');
+var passport = require('passport');
 
 module.exports = function(app) {
   var env = app.get('env');
@@ -28,6 +29,7 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
+  app.use(passport.initialize());
   app.use(prerender);
   // Allow CORS
   app.use(cors());

@@ -47,6 +47,18 @@
             <img src="/assets/images/fledit-white.svg" class="main__editor__sidebar__brand__logo" width="100" />
             Fledit <sup>beta</sup>
           </a>
+
+          <div ng-show="auth.isLoggedIn()" class="main__editor__sidebar__user">
+            <img ng-src="{{ auth.getCurrentUser().github.avatar_url }}" class="main__editor__sidebar__user__avatar" width="50" />
+            Hi, <strong>{{ auth.getCurrentUser().username }}</strong>
+            <span class="pull-right">
+              <button ng-click="auth.logout()" class="btn btn-xs" title="Sign out">
+                <i class="fa fa-sign-out fa-fw"></i>
+                <span class="sr-only">Sign out</span>
+              </button>
+            </span>
+          </div>
+
           <p class="lead main__editor__sidebar__lead">
             Create, share and edit JSON files in realtime.
           </p>
@@ -59,9 +71,15 @@
               </a>
             </li>
             <li ui-sref-active-eq="active">
-              <a ui-sref="main.mine" class="main__editor__sidebar__action" ui-sref="main.mine" ng-show="myfiles.length">
+              <a ui-sref="main.mine" class="main__editor__sidebar__action" ng-show="auth.isLoggedIn() || myfiles.length">
                 <i class="fa fa-files-o fa-fw"></i>
                 &nbsp; Your files
+              </a>
+            </li>
+            <li ng-hide="auth.isLoggedIn()">
+              <a href="/auth/github" class="main__editor__sidebar__action">
+                <i class="fa fa-github fa-fw"></i>
+                &nbsp; Sign in with Github
               </a>
             </li>
           </ul>

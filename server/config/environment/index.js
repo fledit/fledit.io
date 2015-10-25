@@ -36,6 +36,12 @@ var all = {
       }
     }
   },
+  // Github OAuth
+  github: {
+    clientID:     process.env.GITHUB_ID || 'id',
+    clientSecret: process.env.GITHUB_SECRET || 'secret',
+    callbackURL:  (process.env.DOMAIN || '') + '/auth/github/callback'
+  }
 };
 
 // Export the config object based on the NODE_ENV
