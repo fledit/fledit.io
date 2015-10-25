@@ -141,6 +141,13 @@ angular.module('fledit')
        */
       getToken: function() {
         return $cookieStore.get('token');
+      },
+
+      /**
+       * True if the user can claim the file
+       */
+      canClaimFile: function(file) {
+        return currentUser.hasOwnProperty('role') && file.owner !== currentUser._id && file.secret;
       }
     };
   });

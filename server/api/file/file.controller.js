@@ -87,6 +87,22 @@ exports.show = function(req, res) {
 };
 
 // Creates a new file in the DB.s
+exports.mine = function(req, res) {
+  // Build paginator parameters
+  var params = paginator.offset(req);
+
+  File
+    .find({ owner: req.user._id })
+    .limit(params.limit)
+    .skip(params.offset)
+    .sort('-updated_at')
+    .exec(function (err, files) {
+      if(err) { return response.handleError(res)(err); }
+      return res.json(200, files);
+    });
+};
+
+// Creates a new file in the DB.s
 exports.create = function(req, res) {
   // Check creations remaing
   if( createLimiter.tryRemoveTokens(1) ) {

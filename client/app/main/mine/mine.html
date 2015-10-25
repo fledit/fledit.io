@@ -6,8 +6,8 @@
         be available from this page on this computer.
     </p>
 
-    <ul class="list-unstyled main__mine__files">
-        <li ng-repeat="file in myfiles | orderBy:'-updated_at'" class="main__mine__files__item">
+    <ul class="list-unstyled main__mine__files"  infinite-scroll="mine.next()" infinite-scroll-disabled='mine.busy' infinite-scroll-container="'.main__mine'">
+        <li ng-repeat="file in mine.objects | deduplicator | orderBy:'-updated_at'" class="main__mine__files__item">
             <h4 class="main__mine__files__item__title">
                 <a ui-sref="main.file({ id: file._id })">
                     {{file.name || "Untitled"}}
@@ -17,7 +17,7 @@
                 <a ui-sref="main.file.use({id: file._id})">Use</a>
                 —
                 <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
-                <span ng-hide="file.owner">
+                <span ng-show="auth.canClaimFile(file)">
                   —
                   <a ng-click="claim(file)">Claim ownership</a>
                 </span>
