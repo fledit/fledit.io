@@ -17,6 +17,10 @@
                 <a ui-sref="main.file.use({id: file._id})">Use</a>
                 —
                 <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
+                <span ng-hide="file.owner">
+                  —
+                  <a ng-click="claim(file)">Claim ownership</a>
+                </span>
                 —
                 <a ng-click="remove(file)" class="text-danger">Delete</a>
                 —
