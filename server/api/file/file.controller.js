@@ -124,11 +124,11 @@ exports.create = function(req, res) {
 // Updates an existing file in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  var secret = req.body.secret || req.query.secret;
+  var params, secret = req.body.secret || req.query.secret;
   // Authentication without secret for authenticated user
   if( !secret && req.isAuthenticated() ) {
     // Find the file using user id
-    var params = {_id: req.params.id, owner: req.user._id};
+    params = {_id: req.params.id, owner: req.user._id};
   // Authentication using secret
   } else {
     // Check tries remaing
@@ -136,16 +136,15 @@ exports.update = function(req, res) {
       return response.handleError(res)({ error: "Reached rate limit" });
     }
     // Find the file using the secret
-    var params = {_id: req.params.id, secret: secret};
+    params = {_id: req.params.id, secret: secret};
   }
   // Get the file using the secret
   File.findOne(params, function (err, file) {
     if (err) { return response.handleError(res)(err); }
     if(file === null) {
-      // Notice the limiter
-      secretLimiter.removeTokens(1, function() {
-        return res.send(404);
-      });
+      // Notice the limiter if a secret is given
+      if(secret) { secretLimiter.removeTokens(1); }
+      return res.send(404);
     } else {
       // Only content and name can be changed
       file.content   = req.body.content;
