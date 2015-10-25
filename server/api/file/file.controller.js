@@ -82,7 +82,8 @@ exports.show = function(req, res) {
     }
     File.findOne({_id: req.params.id, secret: secret}, callback);
   } else {
-    File.findById(req.params.id, callback);
+    File
+      .findById(req.params.id, callback);
   }
 };
 
@@ -123,13 +124,22 @@ exports.create = function(req, res) {
 // Updates an existing file in the DB.
 exports.update = function(req, res) {
   if(req.body._id) { delete req.body._id; }
-  // Check tries remaing
-  if( secretLimiter.getTokensRemaining() < 1 ) {
-    return response.handleError(res)({ error: "Reached rate limit" });
-  }
   var secret = req.body.secret || req.query.secret;
+  // Authentication without secret for authenticated user
+  if( !secret && req.isAuthenticated() ) {
+    // Find the file using user id
+    var params = {_id: req.params.id, owner: req.user._id};
+  // Authentication using secret
+  } else {
+    // Check tries remaing
+    if( secretLimiter.getTokensRemaining() < 1 ) {
+      return response.handleError(res)({ error: "Reached rate limit" });
+    }
+    // Find the file using the secret
+    var params = {_id: req.params.id, secret: secret};
+  }
   // Get the file using the secret
-  File.findOne({_id: req.params.id, secret: secret}, function (err, file) {
+  File.findOne(params, function (err, file) {
     if (err) { return response.handleError(res)(err); }
     if(file === null) {
       // Notice the limiter

@@ -148,6 +148,13 @@ angular.module('fledit')
        */
       canClaimFile: function(file) {
         return currentUser.hasOwnProperty('role') && file.owner !== currentUser._id && file.secret;
+      },
+
+      /**
+       * True if the user can edit the file
+       */
+      canEditFile: function(file) {
+        return (currentUser.hasOwnProperty('role') && file.owner === currentUser._id) || file.secret;
       }
     };
   });
