@@ -47,6 +47,18 @@
             <img src="/assets/images/fledit-white.svg" class="main__editor__sidebar__brand__logo" width="100" />
             Fledit <sup>beta</sup>
           </a>
+
+          <div ng-show="auth.isLoggedIn()" class="main__editor__sidebar__user">
+            <img ng-src="{{ auth.getCurrentUser().github.avatar_url }}" class="main__editor__sidebar__user__avatar" width="50" />
+            Hi, <strong>{{ auth.getCurrentUser().username }}</strong>
+            <span class="pull-right">
+              <button ng-click="auth.logout()" class="btn btn-xs" title="Sign out">
+                <i class="fa fa-sign-out fa-fw"></i>
+                <span class="sr-only">Sign out</span>
+              </button>
+            </span>
+          </div>
+
           <p class="lead main__editor__sidebar__lead">
             Create, share and edit JSON files in realtime.
           </p>
@@ -68,13 +80,6 @@
               <a href="/auth/github" class="main__editor__sidebar__action">
                 <i class="fa fa-github fa-fw"></i>
                 &nbsp; Sign in with Github
-              </a>
-            </li>
-            </li>
-            <li ng-show="auth.isLoggedIn()">
-              <a ng-click="auth.logout()" class="main__editor__sidebar__action">
-                <i class="fa fa-sign-out fa-fw"></i>
-                &nbsp; Sign out
               </a>
             </li>
           </ul>
