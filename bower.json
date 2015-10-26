@@ -24,7 +24,7 @@
     "animate.css": "~3.2.0",
     "ngInfiniteScroll": "~1.2.0",
     "modernizr": "~2.8.3",
-    "angular-schema-form": "~0.8.2",
+    "angular-schema-form": "~0.8.12",
     "angular-scroll": "~0.7.2",
     "angular-resource": "~1.4.7"
   },

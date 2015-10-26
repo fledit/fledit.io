@@ -2,30 +2,34 @@
 
 angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScope) {
 
-
   var isLiteralArray = function() {
     return $scope.data.constructor === Array && headers.length === 0;
   };
 
   var isObject = function() {
     return $scope.data.constructor === Object;
-  }
+  };
 
   // Transpose values from the table to the file content
   var transposeToTable = function(line, col, value) {
+    var key, r;
     if( isLiteralArray() )  {
       // Create missing rows
-      for(var r = $scope.data.length - 1; r < line;   r++) $scope.data.push(null);
+      for(r = $scope.data.length - 1; r < line;   r++) {
+        $scope.data.push(null);
+      }
       // Simply change the value
       $scope.data[line] = isNaN(value) ? value : 1*value;
     } else if( isObject() )  {
-      var key = _.keys($scope.data)[line];
+      key = _.keys($scope.data)[line];
       $scope.data[key] = value;
     } else {
       // Retreive its key
-      var key = headers[col];
+      key = headers[col];
       // Create missing rows
-      for(var r = $scope.data.length - 1; r < line; r++) $scope.data.push({});
+      for(r = $scope.data.length - 1; r < line; r++) {
+        $scope.data.push({});
+      }
       // Simply change the value
       $scope.data[line][key] = value;
     }
@@ -38,13 +42,14 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
       case OBJECT:  return  'object';
       default:      return  'text';
     }
-  }
+  };
 
   // Event after the table changed
   var afterChange = function(rows, ev) {
     switch(ev) {
       // Do not transpose data when the data are just loaded
-      case "loadData": break;
+      case 'loadData':
+        break;
       // Transpose values from the table to the file content
       default:
         angular.forEach(rows, function(row) {
@@ -89,7 +94,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     angular.forEach(typesPop, function(pop, type) {
       if(pop > maxPop) {
         maxPop = pop;
-        bestType = type
+        bestType = type;
       }
     });
 
@@ -137,7 +142,9 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
 
   var getColumns = function() {
     // literal array has no typed column
-    if( isLiteralArray() || isObject() ) return null;
+    if( isLiteralArray() || isObject() ) {
+      return null;
+    }
     // Array of columns
     return _.map(headers, function(key) {
       // Guess type for every header
@@ -169,7 +176,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
   // Handsometable settings
   $scope.tableSettings = {};
   // Stop here if the current data can't be visualised as a table
-  if( ! $scope.hasTableView() ) return;
+  if( ! $scope.hasTableView() ) { return; }
   // All headers
   var headers = getHeaders();
   // Cell types
@@ -203,6 +210,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
       return newRow;
     });
   }
+
 
   $scope.tableSettings = angular.extend({
     colHeaders: true,
