@@ -52,7 +52,7 @@
             <img ng-src="{{ auth.getCurrentUser().github.avatar_url }}" class="main__editor__sidebar__user__avatar" width="50" />
             Hi, <strong>{{ auth.getCurrentUser().username }}</strong>
             <span class="pull-right">
-              <button ng-click="auth.logout()" class="btn btn-xs" title="Sign out">
+              <button ng-click="auth.logout()" class="btn btn-xs main__editor__sidebar__user__logout" title="Sign out">
                 <i class="fa fa-sign-out fa-fw"></i>
                 <span class="sr-only">Sign out</span>
               </button>

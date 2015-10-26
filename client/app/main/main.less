@@ -232,15 +232,24 @@
       a { color:inherit; }
 
       &__user {
-        margin: 0 -10px;
+        margin: 10px 0;
         margin-bottom: 20px;
-        padding:0 10px;
+        padding:0;
         padding-left:50px + 10px;
         height:50px;
         line-height:50px;
-        color: @text-color;
-        background: mix(@brand-warning, @text-muted);
         position:relative;
+
+        &:after {
+          content:"";
+          background:mix(white, @brand-secondary);
+          height:1px;
+          position:absolute;
+          top:100%;
+          left:0;
+          right:0;
+          margin-top:10px;
+        }
 
         &__avatar {
           position:absolute;
@@ -248,6 +257,15 @@
           left:0;
           height:100%;
           width:auto;
+          border-radius:4px;
+          .box-shadow(0 2px 2px 0  darken(@brand-secondary, 10) );
+        }
+
+        &__logout,
+        &__logout:hover {
+          background: mix(white, @brand-secondary);
+          border:1px solid mix(white, @brand-secondary);
+          color: black;
         }
       }
 
