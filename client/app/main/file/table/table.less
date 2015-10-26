@@ -1,5 +1,8 @@
 .main__file__table {
 
+  padding:0;
+  background: inherit;
+
   &--has-nested {
     overflow: hidden;
 
@@ -12,6 +15,14 @@
     }
   }
 
+
+  &__table-view > .table-view {
+    display: inline-block;
+    padding:15px;
+    .handsontable {
+      .box-shadow(0 1px 1px rgba(0,0,0,.05));
+    }
+  }
 
   &__nested {
     z-index: @zindex-modal-background;
@@ -26,6 +37,9 @@
     text-align:right;
     pointer-events: none;
 
+    .handsontable thead tr:first-child th {
+      border-top:0;
+    }
 
     &__overlay, &__item__overlay {
       position:absolute;

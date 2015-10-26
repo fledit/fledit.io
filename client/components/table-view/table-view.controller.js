@@ -115,7 +115,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
   };
 
   var dynamicRenderer = function(instance, td, row, col, prop, value, cellProperties) {
-    if(  value !== null && [Array, Object].indexOf(value.constructor) > -1 ) {
+    if( value !== null && [Array, Object].indexOf(value.constructor) > -1 ) {
       objectRenderer.apply(this, arguments);
     } else if( !isNaN(value) ) {
       Handsontable.renderers.NumericRenderer.apply(this, arguments);
@@ -219,7 +219,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     persistentState: true,
     columns: getColumns(),
     minSpareRows: 1,
-    readOnly: !!$scope.readOnly,
+    readOnly: false && !!$scope.readOnly,
     afterChange: afterChange
   }, $scope.tableSettings);
 
