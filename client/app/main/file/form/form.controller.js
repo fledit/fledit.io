@@ -14,6 +14,8 @@ angular.module('fledit')
       if(obj.type && obj.type === 'array') {
         // An array field must always define an items attributes
         if(!obj.items) {
+          // We assume that a list of item is by default
+          // a list of strings.
           obj.items = { type: 'string' };
         }
         // We may add a name for this field
