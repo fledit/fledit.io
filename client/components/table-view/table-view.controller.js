@@ -211,7 +211,6 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     });
   }
 
-
   $scope.tableSettings = angular.extend({
     colHeaders: true,
     rowHeaders: true,
@@ -222,9 +221,7 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     readOnly: !!$scope.readOnly,
     afterChange: afterChange,
     fixedRowsTop: 0,
-    fixedColumnsLeft: 0,
-    stretchH: 'all'
+    fixedColumnsLeft: 0
   }, $scope.tableSettings);
 
-  console.log($scope.tableSettings);
 });
