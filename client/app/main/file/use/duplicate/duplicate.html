@@ -1,7 +1,7 @@
-<form name="editorForm" class="main__file__use__duplicate" ng-submit="addFile()">	
+<form name="editorForm" class="main__file__use__duplicate" ng-submit="addFile()">
 	<div class="modal-header">
     <div class="input-group">
-  		<input type="text" class="form-control" ng-model="name" />                
+  		<input type="text" class="form-control" ng-model="name" />
 			<span class="input-group-btn">
         <button type="submit" ng-disabled="!editorForm.$valid" class="btn btn-primary">
           Duplicate
@@ -10,7 +10,7 @@
     </div>
 	</div>
 	<div class="main__file__use__duplicate__content"
-     	 ui-ace="{mode: 'json', theme: 'clouds'}"
+     	 ui-ace="{mode: 'json', theme: 'github'}"
        ui-validate="'noParseError($value)'"
        required
   	   ng-model="content">
