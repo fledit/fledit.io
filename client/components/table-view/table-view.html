@@ -1,7 +1,6 @@
-<div class="table-view">
+<div class="table-view" ng-if="hasTableView()">
   <hot-table
       class="table-view__view"
-      ng-if="hasTableView()"
       settings="tableSettings"
       datarows="dataAsTable">
   </hot-table>

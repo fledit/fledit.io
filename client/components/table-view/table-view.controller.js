@@ -219,8 +219,12 @@ angular.module('fledit').controller('TableViewCtrl', function ($scope, $rootScop
     persistentState: true,
     columns: getColumns(),
     minSpareRows: 1,
-    readOnly: false && !!$scope.readOnly,
-    afterChange: afterChange
+    readOnly: !!$scope.readOnly,
+    afterChange: afterChange,
+    fixedRowsTop: 0,
+    fixedColumnsLeft: 0,
+    stretchH: 'all'
   }, $scope.tableSettings);
 
+  console.log($scope.tableSettings);
 });
