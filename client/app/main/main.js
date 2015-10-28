@@ -2,7 +2,12 @@
 
 angular.module('fledit').config(function ($stateProvider) {
   $stateProvider.state('main', {
-    url: '/?new',
+    url: '/',
+    params: {
+      'new': {
+        value: null
+      }
+    },
     templateUrl: 'app/main/main.html',
     controller: 'MainCtrl'
   });

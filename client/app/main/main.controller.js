@@ -64,7 +64,7 @@ angular.module('fledit').controller('MainCtrl', function ($scope, $state, $q, $s
     }
   };
 
-  $scope.showIntroduction = !$stateParams.new;
+  $scope.showIntroduction = $stateParams.new === null;
   $scope.showSidebar = false;
   // Hide the sidebar on state change
   $scope.$on("$stateChangeStart", function() {
