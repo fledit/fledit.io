@@ -36,7 +36,7 @@ exports.register = function(socket) {
   	socket.leave(room);
   	socket.join(room);
     // Log entrance
-    console.info('[%s] JOIN %s', socket.handshake.address, room);
+    console.info('[%s] JOIN %s', socket.address, room);
   });
 
   // Allow a socket to subscribe to a file room
@@ -44,7 +44,7 @@ exports.register = function(socket) {
     var room = 'file:' + id;
   	socket.leave(room);
     // Log exit
-    console.info('[%s] LEAVE %s', socket.handshake.address, room);
+    console.info('[%s] LEAVE %s', socket.address, room);
   });
 
 };
