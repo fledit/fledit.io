@@ -31,14 +31,20 @@ exports.register = function(socket) {
 
   // Allow a socket to subscribe to a file room
   socket.on("subscribe", function(id) {
+    var room = 'file:' + id;
   	// Does not join a file's room twice
-  	socket.leave('file:' + id);
-  	socket.join('file:' + id);
+  	socket.leave(room);
+  	socket.join(room);
+    // Log entrance
+    console.info('[%s] JOIN %s', socket.handshake.address, room);
   });
 
   // Allow a socket to subscribe to a file room
   socket.on("unsubscribe", function(id) {
-  	socket.leave('file:' + id);
+    var room = 'file:' + id;
+  	socket.leave(room);
+    // Log exit
+    console.info('[%s] LEAVE %s', socket.handshake.address, room);
   });
 
 };
