@@ -90,7 +90,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   // True if the current file can be visualised as a table
   $scope.hasTableView = function() {
     // Enumerable type
-    return Auth.canEditFile(file) && [Array, Object].indexOf(file.constructor) > -1;
+    return Auth.canEditFile(file) && [Array, Object].indexOf(file.content.constructor) > -1;
   };
 
   // True if the current file can be visualised as a form
