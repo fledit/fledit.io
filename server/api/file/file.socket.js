@@ -10,22 +10,17 @@ var file = require('./file.model'),
 // Subscribe to change on the file model
 exports.subscribe = function(socketio) {
 
-  file.schema.post('save', function (doc) {
-    onSave(doc);
-  });
+  file.schema.post('save', onSave);
+  file.schema.post('remove', onRemove);
 
-  file.schema.post('remove', function (doc) {
-    onRemove(doc);
-  });
-
-  function onSave(doc, cb) {
-    doc = _.cloneDeep(doc);
+  function onSave(doc) {
+    doc = doc.toObject();
     doc.secret = null;
     socketio.to("file:" + doc._id).emit('save', doc);
   }
 
-  function onRemove(doc, cb) {
-    doc = _.cloneDeep(doc);
+  function onRemove(doc) {
+    doc = doc.toObject();
     doc.secret = null;
     socketio.to("file:" + doc._id).emit('remove', doc);
   }

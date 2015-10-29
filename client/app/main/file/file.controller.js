@@ -68,6 +68,7 @@ angular.module('fledit').controller('MainFileCtrl', function ($scope, $document,
   };
   // Use the $scope.updatedFile to update the file object (once)
   $scope.refreshFile = function() {
+    delete $scope.updatedFile.secret;
     angular.extend(file, $scope.updatedFile);
     $scope.updatedFile = null;
   };
