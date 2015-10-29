@@ -19,7 +19,7 @@ exports.index = function(req, res) {
   var params = paginator.offset(req);
 
   File
-    .find()
+    .find({}, "-secret")
     .limit(params.limit)
     .skip(params.offset)
     .sort('-updated_at')
@@ -39,7 +39,7 @@ exports.search = function(req, res) {
   }
 
   File
-    .find({ "name": { "$regex": req.query.q, "$options": "i" }})
+    .find({ "name": { "$regex": req.query.q, "$options": "i" }}, "-secret")
     .limit(params.limit)
     .skip(params.offset)
     .sort('-updated_at')
@@ -55,6 +55,7 @@ exports.show = function(req, res) {
   var secret = req.query.secret;
 
   var callback = function (err, file) {
+    var isOwner;
     // Something happend
     if(err) {
       return response.handleError(res)(err);
@@ -69,8 +70,10 @@ exports.show = function(req, res) {
       return res.send(404);
     // Everything is OK
     } else {
+      // Cast owner and user to string
+      isOwner = req.user && "" + file.owner === "" + req.user._id;
       // Alway use the given secret as secret
-      file.secret = secret;
+      file.secret = isOwner ? file.secret : secret;
       return res.json(file);
     }
   };
@@ -82,8 +85,7 @@ exports.show = function(req, res) {
     }
     File.findOne({_id: req.params.id, secret: secret}, callback);
   } else {
-    File
-      .findById(req.params.id, callback);
+    File.findById(req.params.id, callback);
   }
 };
 

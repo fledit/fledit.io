@@ -12,7 +12,6 @@ var FileSchema = new Schema({
   },
   secret: {
     type: String,
-    select: false,
     require: true
   },
   active: {
