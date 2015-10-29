@@ -30,8 +30,10 @@
             <p class="text-muted search__content__results__item__meta">
                 <a ui-sref="main.file.use({id: file._id})">Use</a>
                 —
-                <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
-                —
+                <span ng-if="auth.canEditFile(file)">
+                  <a ui-sref="main.file({id: file._id, secret: file.secret})">Admin link</a>
+                  —
+                </span>
                 Last update <time>{{file.updated_at|date:'short'}}</time>
             </p>
           </div>

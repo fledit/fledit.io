@@ -4,7 +4,8 @@ var       _ = require('lodash'),
 RateLimiter = require('limiter').RateLimiter;
 
 var response = require("../response"),
-   paginator = require("../paginator");
+   paginator = require("../paginator"),
+  serializer = require('./file.serializer');
 
 var File = require('./file.model');
 // We can't allow more than 10 try to get file with secret by hour
@@ -19,13 +20,13 @@ exports.index = function(req, res) {
   var params = paginator.offset(req);
 
   File
-    .find({}, "-secret")
+    .find()
     .limit(params.limit)
     .skip(params.offset)
     .sort('-updated_at')
     .exec(function (err, files) {
       if(err) { return response.handleError(res)(err); }
-      return res.json(200, files);
+      return res.json(200, serializer.collection(files, { req: req }) );
     });
 };
 
@@ -39,13 +40,13 @@ exports.search = function(req, res) {
   }
 
   File
-    .find({ "name": { "$regex": req.query.q, "$options": "i" }}, "-secret")
+    .find({ "name": { "$regex": req.query.q, "$options": "i" }})
     .limit(params.limit)
     .skip(params.offset)
     .sort('-updated_at')
     .exec(function (err, files) {
       if(err) { return response.handleError(res)(err); }
-      return res.json(200, files);
+      return res.json(200, serializer.collection(files, { req: req }) );
     });
 };
 
@@ -55,7 +56,6 @@ exports.show = function(req, res) {
   var secret = req.query.secret;
 
   var callback = function (err, file) {
-    var isOwner;
     // Something happend
     if(err) {
       return response.handleError(res)(err);
@@ -70,11 +70,7 @@ exports.show = function(req, res) {
       return res.send(404);
     // Everything is OK
     } else {
-      // Cast owner and user to string
-      isOwner = req.user && "" + file.owner === "" + req.user._id;
-      // Alway use the given secret as secret
-      file.secret = isOwner ? file.secret : secret;
-      return res.json(file);
+      return res.json( file.toJSON({ req: req, transform: true }) );
     }
   };
 
@@ -101,7 +97,7 @@ exports.mine = function(req, res) {
     .sort('-updated_at')
     .exec(function (err, files) {
       if(err) { return response.handleError(res)(err); }
-      return res.json(200, files);
+      return res.json(200, serializer.collection(files, { req: req }) );
     });
 };
 
@@ -116,7 +112,7 @@ exports.create = function(req, res) {
     // Enought tokens to create a file
     File.create(file, function(err, file) {
       if(err) { return response.handleError(res)(err); }
-      return res.json(201, file);
+      return res.json(201, file.toJSON({ req: req, transform: true }) );
     });
   } else {
     return response.handleError(res)({error: "Reached rate limit"});
@@ -156,7 +152,7 @@ exports.update = function(req, res) {
       file.secret = secret;
       file.save(function (err) {
         if (err) { return response.handleError(res)(err); }
-        return res.json(200, file);
+        return res.json(200, file.toJSON({ req: req, transform: true }) );
       });
     }
   });

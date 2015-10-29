@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
            _ = require('lodash'),
       Schema = mongoose.Schema;
 
+var serializer = require('./file.serializer');
+
 var FileSchema = new Schema({
   name: {
     type: String
@@ -53,7 +55,10 @@ FileSchema.plugin(hash, {
   size: 16
 });
 
-
+// Create and export File model
+var File = module.exports = mongoose.model('File', FileSchema);
+// Instanciate file serializer
+serializer(File);
 
 FileSchema.pre('save', function(next){
   var now = new Date();
@@ -83,5 +88,3 @@ FileSchema.pre('save', function(next){
     next();
   }
 });
-
-var File = module.exports = mongoose.model('File', FileSchema);
